@@ -21,10 +21,19 @@ class RegisterPartController extends Controller
     {      
         $pagination =5; 
         
-        $keyword= $request->keyword;
+
+    //    $data_part = MasterPart::distinct('PART_NO')->pluck('PART_NO');
+    //    $data_part = MasterPart::distinct('partnumber')
+    //    ->whereRaw('year(input_date) > 2020')
+    //    ->pluck('partnumber');
+       
+       
+       $keyword= $request->keyword;
         $data2 = Compare::orderBy('id','desc')->get();
         $data = RegisterPart::where('rog_number', 'LIKE', '%'.$keyword.'%')
                 ->orWhere('part_number', 'LIKE', '%'.$keyword.'%')
+                ->orWhere('status', 'LIKE', '%'.$keyword.'%')
+                ->orWhere('register_at', 'LIKE', '%'.$keyword.'%')
                 ->orWhere('register_by', 'LIKE', '%'.$keyword.'%')
                 ->paginate(5);
                 // ->orderBy('id','asc');
@@ -48,7 +57,7 @@ class RegisterPartController extends Controller
     public function create()
     {
        $model = new RegisterPart;
-    //    $data_part = MasterPart::distinct('PART_NO')->pluck('PART_NO');
+       $data_part = MasterPart::distinct('PART_NO')->pluck('PART_NO');
        $data_part = MasterPart::distinct('partnumber')
        ->whereRaw('year(input_date) > 2020')
        ->pluck('partnumber');
@@ -64,18 +73,21 @@ class RegisterPartController extends Controller
 
     public function createPart(Request $request)
     {
-
-     RegisterPart ::create($request->all());
-     MasterPart::distinct('partnumber')
-       ->whereRaw('year(input_date) > 2020')
-       ->pluck('partnumber');
+        $data_part = MasterPart::distinct('PART_NO')->pluck('PART_NO');
+        $data_part= MasterPart::distinct('partnumber')
+          ->whereRaw('year(input_date) > 2020')
+          ->pluck('partnumber');
+         RegisterPart ::create($request->all());
+    
 
         // return view('register_part.createPart', compact(
         //     'data_part'
         // ));
 
 
-        return redirect('/register_part');
+        return view('/register_part', compact(
+            'data_part'
+        ));
         // return view('/register_part', compact('data_part'));
         
   
