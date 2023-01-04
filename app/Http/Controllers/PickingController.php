@@ -58,6 +58,7 @@ class PickingController extends Controller
 
         // try{
 
+            // INSERT INTO PICKING 
            $data= DB::table('picking')->insert([
                 'rog_number'=>$request->rog_number,
                 'part_number'=>$request->part_number,
@@ -66,7 +67,19 @@ class PickingController extends Controller
                 'scan_label'=>$request->scan_label,
                 'qty_scan'=>$label_qty,
                 
-            ]);       
+            ]);      
+            
+            
+            // INSERT INTO PART SORTING AFTER SUCCESS COMPARE
+           $data= DB::table('part_sorting')->insert([
+            'rog_number'=>$request->rog_number,
+            'part_number'=>$request->part_number,
+            'status'=>$update_status,
+            'picking_by'=>$request->picking_by,
+            'scan_label'=>$request->scan_label,
+            'qty_scan'=>$label_qty,
+            
+        ]);       
 
             return [
                 "success" => true

@@ -48,7 +48,7 @@
                 </div>
             </div>
 
-                <div class="breadcomb-list shadow">
+                <div class="breadcomb-list shadow rounded-3">
                     <div class="card card-success">	
                         <div class="col">
                             <div class="container-fluid">
