@@ -2,9 +2,7 @@
 		============================================ -->
         <!-- bootstrap JS
             ============================================ -->
-        <script src="{{asset ('') }}js/bootstrap.min.js"></script>
-
-        <script src="{{asset ('') }}bootstrap-5/css/bootstrap.min.css"></script>
+        <script src="{{asset ('') }}bootstrap-5/js/bootstrap.min.js"></script>
         <!-- wow JS
             ============================================ -->
         <script src="{{asset ('') }}js/wow.min.js"></script>
@@ -30,8 +28,8 @@
             ============================================ -->
         <script src="{{asset ('') }}js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
         <!-- jvectormap JS
-    
-      
+
+
             ============================================ -->
         <script src="{{asset ('') }}js/sparkline/jquery.sparkline.min.js"></script>
         <script src="{{asset ('') }}js/sparkline/sparkline-active.js"></script>
@@ -60,14 +58,14 @@
             ============================================ -->
         <script src="{{asset ('') }}js/todo/jquery.todo.js"></script>
 
-      
+
         <!-- plugins JS
             ============================================ -->
         <script src="{{asset ('') }}js/plugins.js"></script>
-       
+
         <!-- main JS
             ============================================ -->
-        <script src="{{asset ('') }}js/main.js"></script>
+        {{-- <script src="{{asset ('') }}js/main.js"></script> --}}
         <!-- tawk chat JS
             ============================================ -->
         {{-- <script src="{{asset ('') }}js/tawk-chat.js"></script> --}}
@@ -75,11 +73,10 @@
         <script src="{{asset ('') }}js/dialog/sweetalert2.min.js"></script>
         <script src="{{asset ('') }}js/dialog/dialog-active.js"></script>
 
-
+{{--
         <script src="{{asset ('') }}js/bootstrap.min.js"></script>
-        <script src="{{asset ('') }}js/bootstrap.bundle.min.js"></script>
+        <script src="{{asset ('') }}js/bootstrap.bundle.min.js"></script> --}}
 
-        <script src="extensions/mobile/bootstrap-table-mobile.js"></script>
-       
+        {{-- <script src="extensions/mobile/bootstrap-table-mobile.js"></script> --}}
 
-      
+

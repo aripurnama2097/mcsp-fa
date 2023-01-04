@@ -124,13 +124,13 @@
 	.table {
 		display: flex;
 	  }
-  
+
 	  .table .col {
 		width: 25%;
 	  }
 }
 
- 
+
 /* Tablet desktop :768px. */
 @media (min-width: 768px) and (max-width: 991px) {
 	.main-menu-area{
@@ -333,11 +333,11 @@
 	.table {
 		display: flex;
 	  }
-  
+
 	  .table .col {
 		width: 25%;
 	  }
-	
+
 	  table, thead, tbody, th, td, tr {
 		display: block;
 	}
@@ -352,7 +352,7 @@
 tr {
   margin: 0 0 1rem 0;
 }
-  
+
 tr:nth-child(odd) {
   background: #ccc;
 }
@@ -377,7 +377,7 @@ tr:nth-child(odd) {
 	}
 }
 
- 
+
 /* small mobile :320px. */
 @media only screen and (min-width: 280px) and (max-width: 600px) {
 	.container {width:300px}
@@ -686,39 +686,38 @@ tr:nth-child(odd) {
 		margin-bottom: 10px !important;
 		margin-top: 0px !important;
 	}
-	.table.table-hover > tbody > tr > td, .table.table-hover > tbody > tr > th, .table.table-hover > tfoot > tr > td, .table.table-hover > tfoot > tr > th, .table.table-hover > thead > tr > td, .table.table-hover > thead > tr > th {
+	/* .table.table-hover > tbody > tr > td, .table.table-hover > tbody > tr > th, .table.table-hover > tfoot > tr > td, .table.table-hover > tfoot > tr > th, .table.table-hover > thead > tr > td, .table.table-hover > thead > tr > th {
 		white-space: nowrap;
 	}
 
 	.table {
 		display: flex;
 	  }
-  
+
 	  .table .col {
 		width: 25%;
 	  }
 
 	  table, thead, tbody, th, td, tr {
 		display: block;
-	}
+	} */
 
 	/* Hide table headers (but not display: none;, for accessibility) */
-	thead tr {
+	/* thead tr {
 		position: absolute;
 		top: -9999px;
 		left: -9999px;
 	}
 
-tr {
-  margin: 0 0 1rem 0;
-}
-  
-tr:nth-child(odd) {
-  background: #ccc;
-}
+    tr {
+    margin: 0 0 1rem 0;
+    }
+
+    tr:nth-child(odd) {
+    background: #ccc;
+    }
 
 	td {
-		/* Behave  like a "row" */
 		border: none;
 		border-bottom: 1px solid #eee;
 		position: relative;
@@ -726,18 +725,16 @@ tr:nth-child(odd) {
 	}
 
 	td:before {
-		/* Now like a table header */
 		position: absolute;
-		/* Top/left values mimic padding */
 		top: 0;
 		left: 6px;
 		width: 45%;
 		padding-right: 10px;
 		white-space: nowrap;
-	}
-	
+	} */
+
 }
- 
+
 /* Large Mobile :480px. */
 @media only screen and (min-width: 480px) and (max-width: 767px) {
 	.container {width:450px}
@@ -788,7 +785,7 @@ tr:nth-child(odd) {
 	.table {
 		display: flex;
 	  }
-  
+
 	  .table .col {
 		width: 25%;
 	  }
@@ -806,7 +803,7 @@ tr:nth-child(odd) {
 tr {
   margin: 0 0 1rem 0;
 }
-  
+
 tr:nth-child(odd) {
   background: #ccc;
 }
@@ -829,12 +826,12 @@ tr:nth-child(odd) {
 		padding-right: 10px;
 		white-space: nowrap;
 	}
-	
-	
+
+
 }
- 
-.table{
+
+/* .table{
 	display: block !important;
 	overflow-x: auto !important;
 	width: 100% !important;
-  }
+  } */

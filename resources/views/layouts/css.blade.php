@@ -44,15 +44,14 @@
   <link rel="stylesheet" href="{{asset ('') }}css/style.css">
   <!-- responsive CSS
   ============================================ -->
-  <link rel="stylesheet" href="{{asset ('') }}css/responsive.css">
-  
+  {{-- <link rel="stylesheet" href="{{asset ('') }}css/responsive.css"> --}}
+
     <!-- bootstrap select CSS
 		============================================ -->
   <link rel="stylesheet" href="{{asset ('') }}css/bootstrap-select/bootstrap-select.css">
 
   <link rel="stylesheet" href="{{asset ('') }}css/dialog/dialog.css">
 
-  
 
- 
-  
+
+
