@@ -1,7 +1,5 @@
 <?php
 
-// use TCG\Voyager\Voyager;
-// use TCG\Voyager\Models\Post;
 
 use App\Models\MasterPart;
 use App\Models\RegisterPart;
@@ -16,6 +14,7 @@ use App\Http\Controllers\SortingController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RegisterPartController;
 use App\Http\Controllers\DashboardHelpController;
+use App\Http\Controllers\RecordController;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PickingExport;
 
@@ -87,20 +86,17 @@ Route::get('/picking/detail/{id}/result/', [PickingController::class,'resultComp
 
 // -------ROUTE SORTING--------------------------------------------------------------
 Route::resource('/sorting', SortingController::class);
-Route::get('/picking/split/{id}', [SortingController::class,'split']);
-
-Route::get('/test', function(){
-    return view('test');
-});
+Route::post('/sorting/view/',    [SortingController::class,'splitLabel']);
+Route::get('/sorting/view/{id}', [SortingController::class,'view']);
+Route::get('/picking/view/{id}/splitLabel/', [SortingController::class,'split']);
 
 
+// -------ROUTE RECORD--------------------------------------------------------------
 Route::get('export-csv', function () {
     return Excel::download(new PickingExport, 'picking.csv');
 });
 
-
-
-
+Route::resource('/record', RecordController::class);
 
 
 

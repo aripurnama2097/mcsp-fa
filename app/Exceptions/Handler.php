@@ -38,4 +38,14 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+
+    // public function render($request, Exception $exception)
+    // {
+    //     if($exception instanceof CustomException) {
+    //         return $this->showCustomErrorPage();
+    //     }
+
+    //     return parent::render($request, $exception);
+    // }
 }

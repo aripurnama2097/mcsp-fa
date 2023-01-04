@@ -79,7 +79,7 @@
                                     </ul> --}}
                                 </li>
 
-                                <li><a data-toggle="collapse" data-target="#demodepart" href="{{url('./record')}}">Record Data</a>
+                                <li><a  data-target="#demodepart" href="{{url('./record')}}">Record Data</a>
                                     <ul id="demodepart" class="collapse dropdown-header-top">
                                         <!-- <li><a href="flot-charts.html">Flot Charts</a>
                                 </li> -->
@@ -124,7 +124,7 @@
                         <a href="{{url('./sorting')}}"style="font-weight:bold"><i class="notika-icon notika-app"></i>SORTING PART</a>
                       </li>
                       <li>
-                        <a data-toggle="tab" href="#RecordData" style="font-weight:bold"><i class="notika-icon notika-windows"></i>RECORD DATA</a>
+                        <a  href="{{url('./record')}}" style="font-weight:bold"><i class="notika-icon notika-windows"></i>RECORD DATA</a>
                       </li>
                       <li>
                         <a data-toggle="tab" href="#Forms" style="font-weight:bold"><i class="notika-icon notika-form"></i>MANUAL INSTRUCTION</a>

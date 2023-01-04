@@ -181,6 +181,35 @@
 							<div class="col-lg-12 ">
 								<div class="form-group ic-cmp-int">
 									<div class="form-ic-cmp">
+										<i class="notika-icon notika"></i>
+									</div>
+									<div class="nk-int-st">
+									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <div class="nk-int-mk sl-dp-mn sm-res-mg-t-10">
+                                    <h2>Serach Option</h2>
+                                </div>
+                                <div class="bootstrap-select fm-cmp-mg">
+                                    <select class="selectpicker" data-live-search="true">
+											<option>Drama</option>
+											<option>Cariska</option>
+											<option>Cheriska</option>
+											<option>Malias</option>
+											<option>Kamines</option>
+											<option>Austranas</option>
+										</select>
+                                </div>
+                            </div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						
+
+						<div class="row">
+							<div class="col-lg-12 ">
+								<div class="form-group ic-cmp-int">
+									<div class="form-ic-cmp">
 										<i class="notika-icon notika-part"></i>
 									</div>
 									<div class="nk-int-st">

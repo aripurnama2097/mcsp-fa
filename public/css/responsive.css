@@ -120,14 +120,6 @@
 		margin-bottom: 10px !important;
 		margin-top: 0px !important;
 	}
-
-	.table {
-		display: flex;
-	  }
-
-	  .table .col {
-		width: 25%;
-	  }
 }
 
 
@@ -329,58 +321,12 @@
 		margin-bottom: 10px !important;
 		margin-top: 0px !important;
 	}
-
-	.table {
-		display: flex;
-	  }
-
-	  .table .col {
-		width: 25%;
-	  }
-
-	  table, thead, tbody, th, td, tr {
-		display: block;
-	}
-
-	/* Hide table headers (but not display: none;, for accessibility) */
-	thead tr {
-		position: absolute;
-		top: -9999px;
-		left: -9999px;
-	}
-
-tr {
-  margin: 0 0 1rem 0;
-}
-
-tr:nth-child(odd) {
-  background: #ccc;
-}
-
-	td {
-		/* Behave  like a "row" */
-		border: none;
-		border-bottom: 1px solid #eee;
-		position: relative;
-		padding-left: 50%;
-	}
-
-	td:before {
-		/* Now like a table header */
-		position: absolute;
-		/* Top/left values mimic padding */
-		top: 0;
-		left: 6px;
-		width: 45%;
-		padding-right: 10px;
-		white-space: nowrap;
-	}
 }
 
 
 /* small mobile :320px. */
-@media only screen and (min-width: 280px) and (max-width: 600px) {
-	.container {width:300px}
+@media only screen and (min-width: 300px) and (max-width: 400px) {
+	.container {width: 280px}
 	.main-menu-area{
 		display:none;
 	}
@@ -688,51 +634,8 @@ tr:nth-child(odd) {
 	}
 	/* .table.table-hover > tbody > tr > td, .table.table-hover > tbody > tr > th, .table.table-hover > tfoot > tr > td, .table.table-hover > tfoot > tr > th, .table.table-hover > thead > tr > td, .table.table-hover > thead > tr > th {
 		white-space: nowrap;
-	}
-
-	.table {
-		display: flex;
-	  }
-
-	  .table .col {
-		width: 25%;
-	  }
-
-	  table, thead, tbody, th, td, tr {
-		display: block;
 	} */
-
-	/* Hide table headers (but not display: none;, for accessibility) */
-	/* thead tr {
-		position: absolute;
-		top: -9999px;
-		left: -9999px;
-	}
-
-    tr {
-    margin: 0 0 1rem 0;
-    }
-
-    tr:nth-child(odd) {
-    background: #ccc;
-    }
-
-	td {
-		border: none;
-		border-bottom: 1px solid #eee;
-		position: relative;
-		padding-left: 50%;
-	}
-
-	td:before {
-		position: absolute;
-		top: 0;
-		left: 6px;
-		width: 45%;
-		padding-right: 10px;
-		white-space: nowrap;
-	} */
-
+	
 }
 
 /* Large Mobile :480px. */
@@ -785,53 +688,10 @@ tr:nth-child(odd) {
 	.table {
 		display: flex;
 	  }
-
+  
 	  .table .col {
 		width: 25%;
 	  }
 	  table, thead, tbody, th, td, tr {
 		display: block;
 	}
-
-	/* Hide table headers (but not display: none;, for accessibility) */
-	thead tr {
-		position: absolute;
-		top: -9999px;
-		left: -9999px;
-	}
-
-tr {
-  margin: 0 0 1rem 0;
-}
-
-tr:nth-child(odd) {
-  background: #ccc;
-}
-
-	td {
-		/* Behave  like a "row" */
-		border: none;
-		border-bottom: 1px solid #eee;
-		position: relative;
-		padding-left: 50%;
-	}
-
-	td:before {
-		/* Now like a table header */
-		position: absolute;
-		/* Top/left values mimic padding */
-		top: 0;
-		left: 6px;
-		width: 45%;
-		padding-right: 10px;
-		white-space: nowrap;
-	}
-
-
-}
-
-/* .table{
-	display: block !important;
-	overflow-x: auto !important;
-	width: 100% !important;
-  } */

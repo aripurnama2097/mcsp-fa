@@ -19,7 +19,7 @@ class RegisterPartController extends Controller
      */
     public function index(Request $request)
     {      
-        $pagination =5; 
+        $pagination =3; 
         
 
     //    $data_part = MasterPart::distinct('PART_NO')->pluck('PART_NO');
@@ -35,7 +35,7 @@ class RegisterPartController extends Controller
                 ->orWhere('status', 'LIKE', '%'.$keyword.'%')
                 ->orWhere('register_at', 'LIKE', '%'.$keyword.'%')
                 ->orWhere('register_by', 'LIKE', '%'.$keyword.'%')
-                ->paginate(5);
+                ->latest()->paginate(3);
                 // ->orderBy('id','asc');
                 $data->withPath('register_part');
                 $data->appends($request->all());
@@ -73,7 +73,7 @@ class RegisterPartController extends Controller
 
     public function createPart(Request $request)
     {
-        $data_part = MasterPart::distinct('PART_NO')->pluck('PART_NO');
+        // $data_part = MasterPart::distinct('PART_NO')->pluck('PART_NO');
         $data_part= MasterPart::distinct('partnumber')
           ->whereRaw('year(input_date) > 2020')
           ->pluck('partnumber');
@@ -85,9 +85,7 @@ class RegisterPartController extends Controller
         // ));
 
 
-        return view('/register_part', compact(
-            'data_part'
-        ));
+        return redirect('/register_part');
         // return view('/register_part', compact('data_part'));
         
   
