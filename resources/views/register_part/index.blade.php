@@ -12,14 +12,13 @@
 				<br>	
 			<div class="row">
 				<div class="col-lg-12  ">
-					<div class="breadcomb-list shadow-lg">
+					<div class="breadcomb-list shadow-lg rounded-2">
 						{{-- <div class="row ">						 --}}
 								<div class="breadcomb-wp">
 									<div class="breadcomb-icon">
 										<i class="notika-icon notika-form"></i>
 									</div>
 									<div class="breadcomb-ctn">
-										{{-- <h2 style="font-weight:bold">List Part</h2> --}}
 										<br>
 										<br>
 									</div>
@@ -35,18 +34,8 @@
 										<br>
 										<br>											
 								</form>		
-								
-								
-
 								{{-- <div class="table-responsive"> --}}
 									<div class="card card-success">
-										{{-- <div class="card-header">
-											<h3 class="card-title" class="text-lg-center">Ticket</h3>
-											<div class="card-tools">
-												<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-													<i class="fas fa-minus"></i></button>
-											</div>
-										</div> --}}
 										<h4 class="text-center">PART REQUEST</h4>
 										<div class="container">
 											<div class="row">
@@ -153,7 +142,7 @@
 		<div class="modal-body">
 			<form action="{{ url('/register_part/createPart/') }}" method="post">
 				@csrf
-				<div class="breadcomb-area">
+				<div class="breadcomb-area rounded">
 					<div class="container">
 						<div class="row">				
 							<div class="col-lg-12 ">
@@ -233,7 +222,7 @@
 
 <div class="modal fade" id="modal_confirm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog bg-cyan">
-	  <div class="modal-content">
+	  <div class="modal-content bg-secondary">
 		<div class="modal-header">
 		  <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
 		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -243,14 +232,14 @@
 				@csrf
 				<div class="breadcomb-area">
 					<div class="container">
-						<h1 class="modal-title fs-5 text-center" id="exampleModalLabel">CONFIRM PART?</h1>
+						<h1 class="modal-title fs-5 text-white font-size:50px" id="exampleModalLabel">PART RECEIVED ?</h1>
 						<input type="hidden" name="id" id="confirm_id">
 						<input type="hidden" name="status" id="confirm_status">
 						<br>
 						<br>					
 						<div class="modal-footer text-center">
-						<button type="button" class="btn btn-secondary text-center" data-bs-dismiss="modal">Cancel</button>
-						<button type="submit" class="btn btn-primary text-center">Save changes</button>
+						<button type="button" class="btn btn-warning text-center btn-sm" data-bs-dismiss="modal">CANCEL</button>
+						<button type="submit" class="btn btn-primary text-center btn-sm">CONFIRM</button>
 						</div>	
 					</div>
 				</div>

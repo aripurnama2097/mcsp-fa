@@ -3,11 +3,11 @@
 
 
  <body class="responsive">  
-	<div class="breadcomb-area tb-res-mg-t-20">
+	<div class="breadcomb-area ">
 		<div class="container text-center">
 			<div class="row text-center">
 				<div class="col-lg-12">
-					<div class="breadcomb-list text-center ">
+					<div class="breadcomb-list text-center rounded-3">
 						<div class="row justify-content-center">					
 								<div class="breadcomb-wp mb-lg-3 responsive">
 									<div class="breadcomb-icon text-center">
@@ -24,7 +24,7 @@
 									<div class="row">
 										<div class="col-xs-12">
 												<div class="table-responsive">
-													<table class="table table-hover shadow-xxl " cell-padding="2">
+													<table class="table table-hover shadow-xxl">
 														<thead class="table-dark">
 															<tr>
 																<th class="text-center text-white">NO</th>
