@@ -325,7 +325,7 @@
 
 
 /* small mobile :320px. */
-@media only screen and (min-width: 300px) and (max-width: 400px) {
+@media only screen and (min-width: 300px) and (max-width: 767px) {
 	.container {width: 280px}
 	.main-menu-area{
 		display:none;
@@ -695,3 +695,4 @@
 	  table, thead, tbody, th, td, tr {
 		display: block;
 	}
+}

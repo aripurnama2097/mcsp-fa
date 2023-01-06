@@ -1,8 +1,7 @@
 <?php
 
 
-use App\Models\MasterPart;
-use App\Models\RegisterPart;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +16,9 @@ use App\Http\Controllers\DashboardHelpController;
 use App\Http\Controllers\RecordController;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PickingExport;
+use App\Http\Controllers\QrCodeController;
+use Facade\FlareClient\View;
+use SimpleSoftwareIO\QrCode\Generator;
 
 
 
@@ -88,7 +90,20 @@ Route::get('/picking/detail/{id}/result/', [PickingController::class,'resultComp
 Route::resource('/sorting', SortingController::class);
 Route::post('/sorting/view/',    [SortingController::class,'splitLabel']);
 Route::get('/sorting/view/{id}', [SortingController::class,'view']);
-Route::get('/picking/view/{id}/splitLabel/', [SortingController::class,'split']);
+
+// Route::get('/sorting/view/{id}/print', [SortingController::class,'generate']);
+Route::get('/sorting/view/{id}/print',    [SortingController::class,'generate']);
+// Route::get('/sorting/print/', [SortingController::class,'generate']);
+
+
+// Route::get('/sorting/view/print/',function(){
+//     $qrcode = new Generator;
+//     $qr = $qrcode->size(300)->generate('make QRcode with laravel');
+//     return view('sorting.print',[
+//         Pindex'qr'=>$qr
+//     ]);
+
+// });
 
 
 // -------ROUTE RECORD--------------------------------------------------------------
@@ -97,13 +112,7 @@ Route::get('export-csv', function () {
 });
 
 Route::resource('/record', RecordController::class);
-
-
-
-
-
-
-
+Route::put('/record/filter', [RecordController::class,'filter'])->name('filter');
 
 // Route::get('/picking',[PickingController::class,'show'] );
 // Route::resource('/picking',PickingController::class);
@@ -114,5 +123,4 @@ Route::resource('/record', RecordController::class);
 
 // route put=>register_part/{id}=>update
 // route delete=>register_part/{id}=>delete
-
 // route get=>register_part/{id}/edit=>edit
