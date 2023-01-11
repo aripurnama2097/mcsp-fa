@@ -5,13 +5,7 @@
 	<div class="breadcomb-area tb-res-mg-t-20 rounded">
 		<div class="container">
 			<div class="row">
-							
-							
-							
-							\
-							
-								
-								
+			
 								</div>
 
 								<div class="col-lg-12 shadow-sm rounded border-success">
@@ -24,13 +18,13 @@
 													</div>
 													<div class="breadcomb-ctn ">
 														<h2>FILTER</h2>
-														<form action="{{url('/record/filter')}}" method="PUT">
-															@csrf
+														<form id="date-form">
 															<div class="input-group mb-3">
-																<input type="date" class="form-control" name="start_date">
-																<input type="date" class="form-control" name="end_date">
-																<button class="btn btn-success" type="submit">Filter</button>
-															</div>			
+															<label for="date"></label>
+															<input type="date" class="form-control" name="start_date" id="start-date">
+															<input type="date" class="form-control" name="end_date" id="end-date">
+															<button type="submit" class="btn btn-primary sm" id="submit-btn">Filter</button>
+															</div>
 														</form>
 														
 													</div>
@@ -78,17 +72,15 @@
 															@foreach($data as $key => $value)
 															<tr class="table-light">
 																<td class="text-black text-center">{{ ++$i }}</td>
+																<td class="text-black text-center">{{$value->sorting_by}} </td>
 																<td class="text-black text-center">{{$value->rog_number}} </td>
 																<td class="text-black text-center">{{$value->part_number}} </td>
-																<td class="text-black text-center">{{$value->qty_request}} </td>
-																<td class="text-black text-center">{{$value->qty_request}} </td>
-																<td class="text-black text-center">{{$value->qty_request}} </td>
-																<td class="text-black text-center">
-																<div class="dialog-pro dialog">
-																
-																</div>
-																</td>
-																<td class="text-black text-center">{{$value->picking_at}} </td>
+																<td class="text-black text-center">{{$value->PO}} </td>
+																<td class="text-black text-center">{{$value->label_original}} </td>
+																<td class="text-black text-center">{{$value->status}} </td>
+																<td class="text-black text-center">{{$value->shorting_date}} </td>
+																<td class="text-black text-center">{{$value->label_sorting}} </td>
+																<td class="text-black text-center">{{$value->label_balance}} </td>
 																<td> </td>
 																<td> </td>
 															</tr>
@@ -113,6 +105,49 @@
 	</div>    
 </div> 
 
+<script type="text/javascript">
 
+			$(document).ready(function() {
+				$('#date-form').submit(function(event) {
+					event.preventDefault();
+
+					var startDate = $('#start-date').val();
+    				var endDate = $('#end-date').val();
+
+					// send the AJAX request to the route
+					$.ajax({
+						url: "{{url('/record/filter/')}}",
+						method: 'POST',
+						data: {
+							start_date: startDate,
+        					end_date: endDate,
+							_token: '{{ csrf_token() }}'
+						},
+						success: function(response) {
+						var data=""
+							console.log(data);
+
+							$.each(response,function(key, value){
+
+							data = data + "<tr>"
+							data = data + "<td>"+value.id+"</td>"
+							data = data + "<td>"+value.sorting_by+"</td>"
+							data = data + "<td>"+value.rog_number+"</td>"
+							data = data + "<td>"+value.part_number+"</td>"
+							data = data + "<td>"+value.PO+"</td>"
+							data = data + "<td>"+value.label_original+"</td>"
+							data = data + "<td>"+value.status+"</td>"
+							data = data + "<td>"+value.shorting_date+"</td>"
+							data = data + "<td>"+value.label_sorting+"</td>"
+							data = data + "<td>"+value.label_balance+"</td>"
+							data = data + "</tr>"
+							})
+							$('tbody').html(data);
+						}
+					});
+				});
+			});
+
+</script>
 @endsection
 
