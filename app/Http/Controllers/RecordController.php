@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\BadMethodCallException;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\RecordExport;
 
 class RecordController extends Controller
 {
@@ -25,27 +26,37 @@ class RecordController extends Controller
         $date = $request->input('start_date');
         $date2 = $request->input('end_date');
 
+
+        // $data = RecordSorting::whereBetween('shorting_date', [$date,$date2])->get();
+
+        $data = DB::table('recordSorting')
+        ->whereDate('shorting_date','>=', $date)
+        ->whereDate ('shorting_date','<=', $date2)
+        ->get();
+
+
        
-        // $start = new Carbon($request->start_date);
-        // $end = new Carbon($request->end_date);
-        
 
-        // $data = DB::table('picking')
-        //     ->whereBetween('timestamp_column', [$start_date, $end_date])
-      
-
-        $data = RecordSorting::whereBetween('shorting_date', [$date,$date2])->get();
-           
-        // $data = collect($data);
-        // Excel::create('filename', function($excel) use($data) {
-        //     $excel->sheet('Sheet 1', function($sheet) use($data) {
-        //         $sheet->fromArray($data);
-        //     });
-        // })->download('csv');
-
-            return response()->json($data);
+         return response()->json($data);
     }
 
+    public function exportCSV(Request $request) 
+    {
+        // return $request;
+        $start_date = $request->input('start_date');
+        $end_date =  $request->input('end_date');
+        // $data = RecordSorting::whereBetween('shorting_Date', [$start_date, $end_date])->get();
+        $data = DB::table('recordSorting')
+        ->whereDate('shorting_date','>=',  $start_date)
+        ->whereDate ('shorting_date','<=',   $end_date)
+        ->get();
+        return Excel::download(new RecordExport($data), 'filtered_data.csv');
+    }
 
+    // public function show($id)
+    // {
+    //     $record = RecordSorting::find($id);
+    //     return view('record.show', ['record' => $record]);
+    // }
    
 }

@@ -88,31 +88,36 @@ Route::get('/picking/detail/{id}/result/', [PickingController::class,'resultComp
 
 // -------ROUTE SORTING--------------------------------------------------------------
 Route::resource('/sorting', SortingController::class);
-Route::post('/sorting/view/',    [SortingController::class,'splitLabel']);
 Route::get('/sorting/view/{id}', [SortingController::class,'view']);
-
-// Route::get('/sorting/view/{id}/print', [SortingController::class,'generate']);
+Route::post('/sorting/view/',    [SortingController::class,'splitLabel']);
 Route::get('/sorting/view/{id}/print',    [SortingController::class,'generate']);
-// Route::get('/sorting/print/', [SortingController::class,'generate']);
+Route::post('/sorting/view/{id}/print/update', [SortingController::class,'scanBalance']);
 
 
-// Route::get('/sorting/view/print/',function(){
-//     $qrcode = new Generator;
-//     $qr = $qrcode->size(300)->generate('make QRcode with laravel');
-//     return view('sorting.print',[
-//         Pindex'qr'=>$qr
-//     ]);
-
-// });
 
 
 // -------ROUTE RECORD--------------------------------------------------------------
-Route::get('export-csv', function () {
-    return Excel::download(new PickingExport, 'picking.csv');
-});
+// Route::resource('/record', RecordController::class);
+Route::get('/record', [RecordController::class,'index']);
+Route::post('/record/filter', [RecordController::class,'filter']);
+Route::get('/record/download', [RecordController::class, 'exportCSV']);
+// Route::get('export-csv', function () {
+//     return Excel::download(new PickingExport($data), 'picking.csv');
+// });
 
-Route::resource('/record', RecordController::class);
-Route::put('/record/filter', [RecordController::class,'filter'])->name('filter');
+
+
+// Route::get('/record', [RecordController::class, 'exportCSV'])->name('route.export');
+
+
+
+
+
+
+
+
+
+
 
 // Route::get('/picking',[PickingController::class,'show'] );
 // Route::resource('/picking',PickingController::class);

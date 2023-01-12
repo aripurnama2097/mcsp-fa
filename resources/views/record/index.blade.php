@@ -8,7 +8,7 @@
 			
 								</div>
 
-								<div class="col-lg-12 shadow-sm rounded border-success">
+								<div class="col-lg-12 shadow-sm rounded border border-secondary">
 									<div class="breadcomb-list rounded-3 border-success">
 										<div class="row border-success">
 											<div class="col-lg-6 border-success">
@@ -19,22 +19,24 @@
 													<div class="breadcomb-ctn ">
 														<h2>FILTER</h2>
 														<form id="date-form">
-															<div class="input-group mb-3">
+															<div class="input-group mb-3 rounded-1">
 															<label for="date"></label>
-															<input type="date" class="form-control" name="start_date" id="start-date">
-															<input type="date" class="form-control" name="end_date" id="end-date">
-															<button type="submit" class="btn btn-primary sm" id="submit-btn">Filter</button>
+															<input type="date" class="form-control rounded-3 form-control-sm border border-success" name="start_date" id="start-date" value="{{date('Y-m-d')}}">
+															<input type="date" class="form-control rounded-3 form-control-sm border border-success" name="end_date" id="end-date" value="{{date('Y-m-d')}}">	
+																							
+															<button type="submit" data-toggle="tooltip" data-placement="left" title="" class="btn btn-outline-success btn-sm rounded">Submit</buton>
+															
+															</div>
+															<div class="breadcomb-report">
+																{{-- FILTER --}}
+																
+																{{-- DOWNLOAD --}}
+																<button type="button" id="export-csv" data-toggle="tooltip" data-placement="left" title="" class="btn waves-effect" data-original-title="Download Report"><i class="notika-icon notika-sent"></i></buton>
 															</div>
 														</form>
-														
 													</div>
 												</div>
-
-												<div class="col-2">
-													<div class="breadcomb-report">
-														<a href="export-csv" target="_blank" data-toggle="tooltip" data-placement="left" title="" class="btn waves-effect" data-original-title="Download Report"><i class="notika-icon notika-sent"></i></a>
-													</div>	
-												</div>	
+												
 											</div>
 											<br>
 											<br>
@@ -45,58 +47,59 @@
 								<br>
 											
 							<div class="col-12 mb-5">
-							<div class="card card-success">
+							{{-- <div class="card card-success border border-secondary"> --}}
 								<h4 class="text-center">SORTING RECORD</h4>	
 								
-								<div class="container responsive">
-									<div class="row ">
-										<div class="col-xs-12 ">
-											<div style="overflow-x:auto;">
-												<div class="table-responsive">
-													<table class="table table-hover shadow-sm rounded">
-														<thead class="table-dark">
-															<tr>
-																<th class="text-center text-white ">NO</th>
-																<th class="text-center text-white">NIK</th>
-																<th class="text-center text-white">ROG NUMBER</th>
-																<th class="text-center text-white">PART NUMBER</th>
-																<th class="text-center text-white">PO</th>
-																<th class="text-center text-white">LABEL ORIGINAL</th>
-																<th class="text-center text-white">STATUS</th>
-																<th class="text-center text-white">DATE </th>
-																<th class="text-center text-white">LABEL SORTING </th>
-																<th class="text-center text-white">LABEL BALANCE </th>
-															</tr>
-														</thead>
-														<tbody>									
-															@foreach($data as $key => $value)
-															<tr class="table-light">
-																<td class="text-black text-center">{{ ++$i }}</td>
-																<td class="text-black text-center">{{$value->sorting_by}} </td>
-																<td class="text-black text-center">{{$value->rog_number}} </td>
-																<td class="text-black text-center">{{$value->part_number}} </td>
-																<td class="text-black text-center">{{$value->PO}} </td>
-																<td class="text-black text-center">{{$value->label_original}} </td>
-																<td class="text-black text-center">{{$value->status}} </td>
-																<td class="text-black text-center">{{$value->shorting_date}} </td>
-																<td class="text-black text-center">{{$value->label_sorting}} </td>
-																<td class="text-black text-center">{{$value->label_balance}} </td>
-																<td> </td>
-																<td> </td>
-															</tr>
-															@endforeach  
-														</tbody>
-													</table>
-													<div style="justify-content-md-center ">
-													{{ $data->links() }}
-													</div>
-												</div>
-												</div>
+								
+						   {{-- </div> --}}
+
+						   <div class="container">
+							<div class="row ">
+								<div class="col-12 ">
+										<div class="table-responsive bg-light  shadow rounded">
+											<table class="table table-hover srounded align-middle">
+												<thead class="table-dark">
+													<tr>
+														<th class="text-center text-white ">NO</th>
+														<th class="text-center text-white">NIK</th>
+														<th class="text-center text-white">ROG NUMBER</th>
+														<th class="text-center text-white">PART NUMBER</th>
+														<th class="text-center text-white">PO</th>
+														<th class="text-center text-white">LABEL ORIGINAL</th>
+														<th class="text-center text-white">STATUS</th>
+														<th class="text-center text-white">DATE </th>
+														<th class="text-center text-white">LABEL SORTING </th>
+														<th class="text-center text-white">LABEL BALANCE </th>
+													</tr>
+												</thead>
+												<tbody>									
+													@foreach($data as $key => $value)
+													<tr class="table-light">
+														<td class="text-black text-center">{{ ++$i }}</td>
+														<td class="text-black text-center">{{$value->sorting_by}} </td>
+														<td class="text-black text-center">{{$value->rog_number}} </td>
+														<td class="text-black text-center">{{$value->part_number}} </td>
+														<td class="text-black text-center">{{$value->PO}} </td>
+														<td class="text-black text-center">{{$value->label_original}} </td>
+														<td class="text-black text-center">{{$value->status}} </td>
+														<td class="text-black text-center">{{$value->shorting_date}} </td>
+														<td class="text-black text-center">{{$value->label_sorting}} </td>
+														<td class="text-black text-center">{{$value->label_balance}} </td>
+														<td> </td>
+														<td> </td>
+													</tr>
+													@endforeach  
+												</tbody>
+											</table>
+											<div style="justify-content-md-center ">
+											{{ $data->links() }}
 											</div>
+										</div>
 										</div>
 									</div>
 								</div>
-						   </div>
+							</div>
+						</div>
 						</div>
 					</div>
 				</div>
@@ -145,6 +148,13 @@
 							$('tbody').html(data);
 						}
 					});
+				});
+				$("#export-csv").on("click",function(){
+					let start_date = $('#start-date').val();
+    				let end_date = $('#end-date').val();
+
+					window.open("{{url('/record/download')}}"+"?start_date="+start_date+"&end_date="+end_date);
+
 				});
 			});
 
