@@ -76,7 +76,7 @@ Route::post('/register_part/confirm/', [RegisterPartController::class,'confirm']
 
 
 // -------ROUTE AKSES LIST PART PICKING---------------------------------------------------------------
-Route::resource('/picking',PickingController::class);
+Route::get('/picking',[PickingController::class,'index']);
 // ROUTE TAMPILKAN DETAIL PICKING PART
 Route::get('/picking/detail/{id}', [PickingController::class,'detail']);
 //ROUTE COMPARE(INSERT DATA KEDATABASE)
@@ -87,27 +87,21 @@ Route::get('/picking/detail/{id}/result/', [PickingController::class,'resultComp
 
 
 // -------ROUTE SORTING--------------------------------------------------------------
-Route::resource('/sorting', SortingController::class);
+Route::get('/sorting', [SortingController::class,'index']);
+// INPUTAN SPLIT LABEL AND INSERT TO TABLE SPLIT_LABEL
 Route::get('/sorting/view/{id}', [SortingController::class,'view']);
-Route::post('/sorting/view/',    [SortingController::class,'splitLabel']);
+// ROUTE UNTUK SPLIT LABEL
+Route::post('/sorting/view/{id}',    [SortingController::class,'splitLabel']);
+// TAMPILKAN HASIL GENERATE QR DAN MENU LABEL BALANCE SCAN
 Route::get('/sorting/view/{id}/print',    [SortingController::class,'generate']);
-Route::post('/sorting/view/{id}/print/update', [SortingController::class,'scanBalance']);
-
-
+// UPDATE TABLE SPLIT_LABEL AND INSERT BALANCE SCAN
+Route::get('/sorting/view/{id}/print/update', [SortingController::class,'scanBalance']);
 
 
 // -------ROUTE RECORD--------------------------------------------------------------
-// Route::resource('/record', RecordController::class);
 Route::get('/record', [RecordController::class,'index']);
 Route::post('/record/filter', [RecordController::class,'filter']);
 Route::get('/record/download', [RecordController::class, 'exportCSV']);
-// Route::get('export-csv', function () {
-//     return Excel::download(new PickingExport($data), 'picking.csv');
-// });
-
-
-
-// Route::get('/record', [RecordController::class, 'exportCSV'])->name('route.export');
 
 
 
