@@ -53,9 +53,10 @@
 								
 						   {{-- </div> --}}
 
-						   <div class="container">
-							<div class="row ">
-								<div class="col-12 ">
+						<div class="breadcomb-list shadow rounded-3">
+							<div class="card card-success">
+								<div class="col">
+									<div class="container-fluid">
 										<div class="table-responsive bg-light  shadow rounded">
 											<table class="table table-hover srounded align-middle">
 												<thead class="table-dark">

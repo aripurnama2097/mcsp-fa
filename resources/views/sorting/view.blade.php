@@ -106,10 +106,7 @@ $('#sorting_by').focus();
                         url     :"{{url('/sorting/view/{id}')}}",
                         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                         success : function(response){
-                            // if (response.success) {
-                                      // Redirect to a new tab using window.open()
-                                //  window.location.replace('http://www.example.com', '_blank');
-                                 window.location.replace(response.redirect);
+                        window.location.replace(response.redirect);
                            
                           
                        
@@ -147,6 +144,34 @@ $('#sorting_by').focus();
                     })
                     }
         }
+
+
+
+        function generateQR()
+                    {
+                        $.ajax({
+                            type: 'GET',
+                            dataType:"json",
+                            // data    :{rog_number:rog_number,part_number:part_number,status:status, picking_by:picking_by, scan_label:scan_label, qty_scan:qty_scan},
+							url: "{{url('/picking/view/{id}/generate/')}}",
+							success: function(response){
+                            var data=""
+                              $.each(response,function(key, value){
+
+                                data = data + "<tr>"
+                                data = data + "<td>"+value.id+"</td>"               
+                                data = data + "<td>"+value.sorting_by+"</td>"
+                                data = data + "<td>"+value.part_number+"</td>"
+                                data = data + "<td>"+value.split_qty+"</td>"
+                           
+                                data = data + "</tr>"
+                                })
+                                $('tbody').html(data);
+
+							}
+							})
+                    }
+                    resultCompare();
 
 </script>
 

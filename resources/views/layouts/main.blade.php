@@ -33,7 +33,7 @@
                   <div class="header-top-menu">
                       <ul class="nav navbar-nav notika-top-nav">
                           <li class="nav-item dropdown">
-                              <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-search"></i></span></a>
+                              {{-- <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-search"></i></span></a> --}}
                               <div role="menu" class="dropdown-menu search-dd animated flipInX">
                                   <div class="search-input">
                                       <i class="notika-icon notika-left-arrow"></i>
@@ -61,29 +61,16 @@
                                 <li><a data-toggle="collapse" data-target="{{url('layouts.main')}}" href="#">Home</a>
                                 </li>
 
-                                <li><a data-toggle="collapse" data-target="#democrou" href="#">Register Part</a>
-                                    <ul id="democrou" class="collapse dropdown-header-top">
-                                    <li><a href="{{url('/register_part')}}">REGISTER PART</a>
-                                     </li>
-                                    </ul>
+                                <li><a data-toggle="collapse" data-target="{{url('/register_part')}}" href="#">REGISTER PART</a>
                                 </li>
 
                                 <li><a  class="text-bold" href="{{url('./picking')}}">PICKING </a>
-         
                                 </li>
                              
-                                <li><a data-target="#demolibra" href="{{url('./sorting')}}">Sorting Part</a>
-                                    {{-- <ul id="demolibra" class="collapse dropdown-header-top">
-                                    <li><a href="alert.html">Alerts</a>
-                                   </li>
-                                    </ul> --}}
+                                <li><a data-target="#demolibra" href="{{url('./sorting')}}">Sorting Part</a>                                 
                                 </li>
 
                                 <li><a  data-target="#demodepart" href="{{url('./record')}}">Record Data</a>
-                                    <ul id="demodepart" class="collapse dropdown-header-top">
-                                        <!-- <li><a href="flot-charts.html">Flot Charts</a>
-                                </li> -->
-                                    </ul>
                                 </li>
 
                                 <li><a data-toggle="collapse" data-target="#demo" href="#">Manual Instruction</a>
@@ -99,6 +86,8 @@
             </div>
         </div>
     </div>
+
+    
     <!-- MOBILE MENU END -->
 
 
@@ -108,13 +97,11 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro ">
-
                       <li class="active bg-green">
                         <a data-toggle="tab" href="#Home" style="font-weight:bold" > <i class="notika-icon notika-house background-color:white text-bold"></i> HOME</a>
                       </li>        
                       <li>
                         <a   href="{{url('/register_part')}}" style="font-weight:bold"><i class="notika-icon notika-edit"></i></i>REGISTER PART</a>
-                     
                       </li>
                       <li>
                         <a  href="{{url('./picking')}}" style="font-weight:bold"><i class="notika-icon notika-windows"></i>PICKING PART</a>
@@ -124,10 +111,10 @@
                         <a href="{{url('./sorting')}}"style="font-weight:bold"><i class="notika-icon notika-app"></i>SORTING PART</a>
                       </li>
                       <li>
-                        <a  href="{{url('./record')}}" style="font-weight:bold"><i class="notika-icon notika-windows"></i>RECORD DATA</a>
+                        <a  href="{{url('./balance')}}" style="font-weight:bold"><i class="notika-icon notika-windows"></i>BALANCE</a>
                       </li>
                       <li>
-                        <a data-toggle="tab" href="#Forms" style="font-weight:bold"><i class="notika-icon notika-form"></i>MANUAL INSTRUCTION</a>
+                        <a  href="{{url('./record')}}" style="font-weight:bold"><i class="notika-icon notika-form"></i>RECORD DATA</a>
                       </li>       
                     </ul>
 
@@ -172,8 +159,6 @@
                      
                         <div id="RecordData" class="tab-pane notika-tab-menu-bg animated flipInX">
                             <ul class="notika-main-menu-dropdown  ">
-                                <!-- <li><a href="flot-charts.html">Flot Charts</a>
-                                </li> -->
                             </ul>
                         </div>
 

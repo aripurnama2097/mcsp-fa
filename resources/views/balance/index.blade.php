@@ -17,7 +17,7 @@
 
 								<div class="col-12 mb-5">
 							<div class="card card-success">
-								<h4 class="text-center">SORTING PART</h4>
+								<h4 class="text-center">LABEL SCAN</h4>
 								<div class="container ">
 									<div class="row ">
 										<div class="responsive">
@@ -29,8 +29,7 @@
 																<th class="text-center text-white ">NO</th>
 																<th class="text-center text-white">ROG NUMBER</th>
 																<th class="text-center text-white">PART NUMBER</th>
-																<th class="text-center text-white">QTY REQUEST</th>
-																<th class="text-center text-white">STATUS</th>
+																{{-- <th class="text-center text-white">STATUS</th> --}}
 																<th class="text-center text-white">ACTION </th>
 															</tr>
 														</thead>
@@ -40,24 +39,11 @@
 																<td class="text-black text-center">{{ ++$i }}</td>
 																<td class="text-black text-center">{{$value->rog_number}} </td>
 																<td class="text-black text-center">{{$value->part_number}} </td>
-																<td class="text-black text-center">{{$value->qty_request}} </td>
+																
 																<td class="text-black text-center">
-																	<?php if ($value->status == 'SELECT') {
-																		echo '<span class= "badge text-bg-warning badge-font-size:20px;">BEFORE PICKING</span>';
-																	} ?>
-																	<?php if ($value->status == 'PICKING') {
-																		echo '<span class= "badge text-bg-warning">PICKING</span>';
-																	} ?>
-																	<?php if ($value->status == 'SORTING') {
-																		echo '<span class= "badge text-bg-success">SUCCESS</span>';
-																	} ?>
-																</td>
-																<td class="text-black text-center">
-																<div class="dialog-pro dialog"> 
-																	<?php if ($value->status =='PICKING'){?>
-																		<a href="{{ url('/sorting/view/'.$value->id.'') }}" 
-																		class="btn btn-primary btn-sm rounded-2">SORTING</a>
-																	<?php }?>
+																<div class="dialog-pro dialog"> 												
+																		<a href="{{ url('/balance/view/'.$value->id.'') }}" 
+																		class="btn btn-success btn-sm rounded-2">SCAN</a>			
 																</div>
 																</td>
 															</tr>

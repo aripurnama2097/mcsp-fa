@@ -24,6 +24,7 @@
                                     <input class="font-weight-bold" type="text" name="part_number" value="{{$value->part_number}}"  id="part_number"  disabled>
                                     <br>
                                     <input type="hidden" name="status" value="{{$value->status}}"  id="status"  disabled>
+                                    <input type="hidden" name="qty_request" value="{{$value->qty_request}}"  id="qty_request"  disabled>
                                     <br>
                                     <h4 class="font-size:25px text-center text-primary">COMPARE PART </h4>
                                     <input class="form-control form-control-lg mb-3 text-center " type="text" name="picking_by" value="" id="picking_by" maxlength="8" placeholder="SCAN NIK HERE" >
@@ -116,12 +117,13 @@
                     var picking_by   = $('#picking_by').val();
                     var scan_label   = $('#scan_label').val();
                     var qty_scan   = $('#qty_scan').val();
+                    var qty_request   = $('#qty_request').val();
 
                     if(scan_label.search(part_number)>= 0){
                       $.ajax({
                         type    :"POST",
                         dataType:"json",
-                        data    :{rog_number:rog_number,part_number:part_number,status:status, picking_by:picking_by, scan_label:scan_label, qty_scan:qty_scan},
+                        data    :{rog_number:rog_number,part_number:part_number,status:status, picking_by:picking_by, scan_label:scan_label, qty_scan:qty_scan,qty_request:qty_request},
                         url     :"{{url('/picking/detail/')}}",
                         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                         success : function(data){
@@ -158,7 +160,7 @@
                         $.ajax({
                             type: 'GET',
                             dataType:"json",
-                            data: { id },
+                            // data    :{rog_number:rog_number,part_number:part_number,status:status, picking_by:picking_by, scan_label:scan_label, qty_scan:qty_scan},
 							url: "{{url('/picking/detail/{id}/result/')}}",
 							success: function(response){
                             var data=""

@@ -2,23 +2,25 @@
 
 
 
+use Facade\FlareClient\View;
 use Illuminate\Http\Request;
+use App\Exports\PickingExport;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Route;
+use SimpleSoftwareIO\QrCode\Generator;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ForgotController;
+use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\RecordController;
+use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\PickingController;
 use App\Http\Controllers\SortingController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RegisterPartController;
 use App\Http\Controllers\DashboardHelpController;
-use App\Http\Controllers\RecordController;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\PickingExport;
-use App\Http\Controllers\QrCodeController;
-use Facade\FlareClient\View;
-use SimpleSoftwareIO\QrCode\Generator;
+
 
 
 
@@ -67,8 +69,9 @@ Route::resource('/dashboard/help', DashboardHelpController::class)->middleware('
 
 // -------ROUTE AKSES LIST PART ROG---------------------------------------------------------------
 Route::resource('/register_part', RegisterPartController::class);
+
 Route::post('/register_part/create/', [RegisterPartController::class,'create']);
-// ROUTE CreatePart
+// CREATE REGISTER PART WITH MODEL
 Route::post('/register_part/createPart/', [RegisterPartController::class,'createPart']);
 // ROUTE CONFIRM
 Route::post('/register_part/confirm/', [RegisterPartController::class,'confirm']);
@@ -92,10 +95,23 @@ Route::get('/sorting', [SortingController::class,'index']);
 Route::get('/sorting/view/{id}', [SortingController::class,'view']);
 // ROUTE UNTUK SPLIT LABEL
 Route::post('/sorting/view/{id}',    [SortingController::class,'splitLabel']);
+
 // TAMPILKAN HASIL GENERATE QR DAN MENU LABEL BALANCE SCAN
-Route::get('/sorting/view/{id}/print',    [SortingController::class,'generate']);
+Route::get('/sorting/view/{id}/generate',    [SortingController::class,'generate']);
 // UPDATE TABLE SPLIT_LABEL AND INSERT BALANCE SCAN
-Route::get('/sorting/view/{id}/print/update', [SortingController::class,'scanBalance']);
+Route::get('/sorting/view/{id}/generate/update', [SortingController::class,'scanBalance']);
+
+
+// -------ROUTE BALANCE--------------------------------------------------------------
+Route::get('/balance', [BalanceController::class,'index']);
+Route::get('/balance/view/{id}', [BalanceController::class,'view']);
+Route::post('/balance/view/{id}/insert', [BalanceController::class,'insert']);
+
+
+
+
+
+
 
 
 // -------ROUTE RECORD--------------------------------------------------------------

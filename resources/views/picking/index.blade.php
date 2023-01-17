@@ -1,5 +1,7 @@
 @extends('layouts.main')
 @section('section')
+
+
     <div class="breadcomb-area ">
         <div class="container text-center">
             <div class="row text-center">
@@ -9,7 +11,7 @@
                             <div class="breadcomb-wp mb-lg-3 responsive">
                                 <div class="breadcomb-icon text-center">
                                     {{-- <i class="notika-icon notika-form"></i> --}}
-                                    {{-- <p class="text-center text-bold"><i class="notika-icon notika-edit"></i>PARTLIST PICKING<p> --}}
+                                    <h4 class="text-center ">PICKING PART</h4>
                                 </div>
                             </div>
 
@@ -21,13 +23,12 @@
     </div>
     {{-- <div class="col-12 mb-5 bg-danger"> --}}
         {{-- <div class="card bg-success"> --}}
-            <h4 class="text-center ">PICKING PART</h4>
+            
             <div class="container">
-
                 <div class="row">
                     <div class="col-12">
-                        <div class="table-responsive bg-light border border-success shadow">
-                            <table class="table table-hover bg-light shadow rounded align-middle">
+                        <div class="table-responsive bg-light  shadow rounded">
+                            <table class="table table-hover  rounded align-middle">
                                 <thead class="table-dark">
                                     <tr>
                                         <th class="text-center text-white">NO</th>
@@ -56,14 +57,14 @@
                                                 <?php if ($value->status == 'PICKING') {
                                                     echo '<span class= "badge text-bg-primary">SUCCESS</span>';
                                                 } ?>
-                                                <?php if ($value->status == 'DONE') {
+                                                <?php if ($value->status == 'SORTING') {
                                                     echo '<span class= "badge text-bg-success">DONE</span>';
                                                 } ?>
                                             </td>
                                             <td class="text-black text-center">
                                                 <div class="dialog-pro dialog">
                                                     <?php if ($value->status =='SELECT'){?>
-                                                    <a href="{{ url('/picking/detail/' . $value->id . '') }}"
+                                                        <a href="{{ url('/picking/detail/' . $value->id . '') }}"
                                                         class="btn btn-success btn-sm">PICKING</a>
                                                     <?php }?>
                                                 </div>
@@ -73,9 +74,12 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="d-flex justify-content-center">
-                                {{ $data->links() }}
-                            </div>
+                            
+                        </div>
+                       
+                        <br>
+                        <div class="d-flex justify-content-center">
+                            {{ $data->links() }}
                         </div>
                     </div>
                 </div>

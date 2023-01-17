@@ -71,6 +71,7 @@ class RegisterPartController extends Controller
        
     }
 
+    // CREATE REGISTER PART WITH MODEL
     public function createPart(Request $request)
     {
         // $data_part = MasterPart::distinct('PART_NO')->pluck('PART_NO');
@@ -79,17 +80,10 @@ class RegisterPartController extends Controller
           ->pluck('partnumber');
          RegisterPart ::create($request->all());
     
-
-        // return view('register_part.createPart', compact(
-        //     'data_part'
-        // ));
-
-
-        return redirect('/register_part');
-        // return view('/register_part', compact('data_part'));
         
-  
-       
+        return redirect('/register_part')->with('success', 'Success! Data Berhasil Disimpan');;
+        // return view('/register_part', compact('data_part'));   
+        // return redirect()->route('/register_part')->with(compact('data_part'));  
     }
 
     /**

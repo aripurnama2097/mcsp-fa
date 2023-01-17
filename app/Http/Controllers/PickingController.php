@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Picking; // table register_part
+use App\Models\PartPicking; // table register_part
 use App\Models\Compare; // table picking
 use App\Models\Sorting;
+use App\Models\PartSorting;
 use App\Models\RegisterPart; // table register_part
 use Illuminate\Support\Facades\DB;
 
@@ -44,85 +45,46 @@ class PickingController extends Controller
         // status => "SELECT"
 
         $update_status = "PICKING";
-        $label_qty= substr("A2B-0128-20     1234567 40    I10827 A2B-0002-00    202211161618210132000030",23,3);
+        // $label_qty= substr("A2B-0128-20     1234567 40    I10827 A2B-0002-00    202211161618210132000030",23,3);
+
+        $raw_nik          = $request->picking_by;
+        $nik              =  substr($raw_nik, 2,5); 
+        $labelQty         = $request->scan_label;
+        $label_qty        = substr($labelQty, 23,3);
 
         RegisterPart::where("status",$request->status)
         ->where("part_number",$request->part_number)
         ->where("rog_number",$request->rog_number)
         ->update(["status" => $update_status]);
-        // DB::beginTransaction();
-        
-        // $picking = new Picking;
-
-        // return $data;
-
-        // try{
 
             // INSERT INTO PICKING 
-           $data= DB::table('picking')->insert([
-                'rog_number'=>$request->rog_number,
-                'part_number'=>$request->part_number,
-                'status'=>$update_status,
-                'picking_by'=>$request->picking_by,
-                'scan_label'=>$request->scan_label,
-                'qty_scan'=>$label_qty,
+        //    DB::table('picking')->insert([
+        //         'rog_number'=>$request->rog_number,
+        //         'part_number'=>$request->part_number,
+        //         'status'=>$update_status,
+        //         'picking_by'=>$nik,
+        //         'scan_label'=>$request->scan_label,
+        //         'qty_scan'=>$label_qty,
                 
-            ]);      
+        //     ]);      
             
-            
-            // INSERT INTO PART SORTING AFTER SUCCESS COMPARE
-           $data= DB::table('part_sorting')->insert([
+           
+        // INSERT INTO PART SORTING AFTER SUCCESS COMPARE
+         DB::table('part_sorting')->insert([
             'rog_number'=>$request->rog_number,
             'part_number'=>$request->part_number,
             'status'=>$update_status,
-            'picking_by'=>$request->picking_by,
+            'picking_by'=>$nik,
             'scan_label'=>$request->scan_label,
             'qty_scan'=>$label_qty,
+            'qty_request'=>$request->qty_request,
             
         ]);       
 
             return [
                 "success" => true
-            ];
-
-            // return response()->json($data);
-          
-
-        //     $model = DB::table('register_part')
-        //     // ->where('id',8)
-        //     ->where('status','SELECT')
-        //     ->update(['status' => 'PICKING']);
-           
-        //     return $model;
-
-        //     // UPDATE TABLE REGISTER
-           
-        //     // $data = RegisterPart::find($request->id);
-        //     // $data->status = 'PICKING';            
-        //     // $data->save();
-
-
-        //     //     
-    
-        // // }
-
-        // // catch (\Exception $e) {
-        // //             // Rollback the transaction
-        // //             DB::rollBack();
-            
-        // //             // Return error response
-        // //             return response()->json([
-        // //                 'success' => false,
-        // //                 'message' => 'Error updating data: ' . $e->getMessage()
-        // //             ]);
-
-        // // }
-        
-          
+            ];     
     }         
-      
-
-
 }   
 
 

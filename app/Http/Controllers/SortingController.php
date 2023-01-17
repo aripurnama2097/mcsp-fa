@@ -34,44 +34,23 @@ class SortingController extends Controller
 
     public function splitLabel(Request $request ){
 
-        $rog_number     =   $request->rog_number;  
+            $rog_number     =   $request->rog_number;                  
+            $PARTNO         = $request->part_number;
+            $part_number    =   substr($PARTNO,0,11);
+            $PO_NUMBER      = $request->po;
+            $po             =   substr($PO_NUMBER,16,7);
         
         
-        $PARTNO = $request->part_number;
-        $part_number    =   substr($PARTNO,0,11);
-        $PO_NUMBER = $request->po;
-        $po             =   substr($PO_NUMBER,16,7);
-      
-        $splitlabel     =   $request->label_original;
-        $raw_nik        =   $request->sorting_by; //2241312F
-        $splitqty       =   $request->qty_split;
-        
+            $raw_nik        =   $request->sorting_by; //2241312F
+            $splitlabel     =   $request->label_original;
+            $splitqty       =   $request->qty_split;
 
-        $update_status ='SORTING';
+            // LABEL ORIGINAL SAMPLE = A2B-0002-00     1234567 30    I10827 A2B-0002-00    202211161618210132000002
 
-
-        PartSorting::where("status",$request->status)
-        ->where("part_number",$request->part_number)
-        ->where("rog_number",$request->rog_number)
-        ->update(["status" => $update_status]);
-
-        // INSERT INTO splitlabel
-        DB::table('split_Label')->insert([        
-            'sorting_by'    => $raw_nik,
-            'rog_number'    => $rog_number,
-            'part_number'   => $part_number, 
-            'PO'            => $po,
-            'label_original'=> $splitlabel,
-            'status'        => $update_status,
-            'qty_split'     => $splitqty        
-        ]);   
-
-            
-          
-            $maxqty         = substr($splitlabel, 24,5);
-            $splitqty2      = intval($maxqty) - intval($splitqty);
-            $startlabel     = substr($splitlabel, 0,24);
-            $middlelabel    = substr($splitlabel, 30,22);
+            $maxqty         = substr($splitlabel, 24,5); //QTY DI LABEL ORIGINAL
+            $splitqty2      = intval($maxqty) - intval($splitqty); //LABEL BALANCE = (ORIGINAL - QTY SPLIT)
+            $startlabel     = substr($splitlabel, 0,24);//A2B-0002-00 1234567
+            $middlelabel    = substr($splitlabel, 30,22);// I10827 A2B-0002-00
             $date_temp1     = date("YmdHis");
             $microdate_temp1= microtime();
             $microdate_temp2= explode(" ",$microdate_temp1);
@@ -79,37 +58,56 @@ class SortingController extends Controller
             $date           = $date_temp1 . $microdate;
             $sequence1      = str_pad(1,6,"0", STR_PAD_LEFT);
             $sequence2      = str_pad(2,6,"0", STR_PAD_LEFT);
-            $qty1           = str_pad($splitqty,5," ",STR_PAD_RIGHT);
-            $qty2           = str_pad($splitqty2,5," ",STR_PAD_RIGHT);
+            $qty1           = str_pad($splitqty,5," ",STR_PAD_RIGHT);//QTY LABEL SORTING
+            $qty2           = str_pad($splitqty2,5," ",STR_PAD_RIGHT);//QTY LABEL BALANCE
             $newlabel1      = $startlabel . $qty1 . ' ' . $middlelabel . $date . $sequence1;
             $newlabel2      = $startlabel . $qty2 . ' ' . $middlelabel . $date . $sequence2;
         
-            $newlabel1_name = str_replace($newlabel1, '/','_');
-            $newlabel2_name = str_replace($newlabel2, '/','_');
+            $newlabel1_name = str_replace($newlabel1, '/','_');//LABEL SORTING
+            $newlabel2_name = str_replace($newlabel2, '/','_');//LABEL BALANCE
 
 
+        //   return $newlabel1;
           
 
-            $dataSplit =[
-                "maxqty"         => $maxqty ,// QTY LABEL ORIGINAL
-                "splitqty2"      => $splitqty2,
-                "startlabel"     => $startlabel,
-                "middlelabel"    => $middlelabel,
-                "date_temp1"     => $date,
-                "microdate_temp1"=> $microdate_temp1,
-                "microdate_temp2"=> $microdate_temp2,
-                "microdate"      => $microdate,
-                "date"           => $date,
-                "sequence1"      => $sequence1,
-                "sequence2"      => $sequence2,
-                "qty1"           => $qty1,
-                "qty2"           => $qty2,
-                "newlabel1"      => $newlabel1,
-                "newlabel2"      => $newlabel2,
-                "newlabel1_name" => $newlabel1_name,
-                "newlabel2_name" => $newlabel2_name,
 
-            ];     
+          $update_status ='SORTING';
+          PartSorting::where("status",$request->status)
+          ->where("part_number",$request->part_number)
+          ->where("rog_number",$request->rog_number)
+          ->update(["status" => $update_status]);
+  
+          // INSERT INTO splitlabel
+          DB::table('split_Label')->insert([        
+              'sorting_by'    => $raw_nik,
+              'rog_number'    => $rog_number,
+              'part_number'   => $part_number, 
+              'PO'            => $po,
+              'label_original'=> $splitlabel,
+              'status'        => $update_status,
+              'qty_split'     => $splitqty        
+          ]);   
+  
+            // $dataSplit =[
+            //     "maxqty"         => $maxqty ,// QTY LABEL ORIGINAL
+            //     "splitqty2"      => $splitqty2,
+            //     "startlabel"     => $startlabel,
+            //     "middlelabel"    => $middlelabel,
+            //     "date_temp1"     => $date,
+            //     "microdate_temp1"=> $microdate_temp1,
+            //     "microdate_temp2"=> $microdate_temp2,
+            //     "microdate"      => $microdate,
+            //     "date"           => $date,
+            //     "sequence1"      => $sequence1,
+            //     "sequence2"      => $sequence2,
+            //     "qty1"           => $qty1,
+            //     "qty2"           => $qty2,
+            //     "newlabel1"      => $newlabel1,
+            //     "newlabel2"      => $newlabel2,
+            //     "newlabel1_name" => $newlabel1_name,
+            //     "newlabel2_name" => $newlabel2_name,
+
+            // ];     
             
         
             // $request->session()->put('newlabel1_name');
@@ -122,7 +120,7 @@ class SortingController extends Controller
             // )); 
             
 
-            return response()->json(['redirect' => '{id}/print']);
+            return response()->json(['redirect' => '{id}/generate']);
 
 
     }
@@ -131,14 +129,14 @@ class SortingController extends Controller
 
    
 
-    public function generate  ()
+    public function generate  ($splitlabel)
     {
       
-        $datas = DB::table('split_Label')->get();
-        // $qrCode = QrCode::size(100)           
-        //         ->generate($splitlabel);
+        // $datas = DB::table('split_Label')->get();
+        $qrCode = QrCode::size(100)           
+                ->generate($splitlabel);
 
-        return view('sorting.print',  compact('datas'));
+        // return view('sorting.print',  compact('datas'));
 
         // $qrCode1 ="tes";
         // $qrCode = QrCode::size(200)->generate("a");
@@ -148,7 +146,7 @@ class SortingController extends Controller
         //     'splitLabel'=> $value
         //     ]);
         
-        //     return view('sorting.print',compact('data2','qrCode'));      
+            return view('sorting.generate',compact('qrCode'));      
     }
 
 
@@ -185,25 +183,6 @@ class SortingController extends Controller
 
 
     public function scanBalance(Request $request){
-
-     
-
-
-        $status ='OK';
-        // $data = DB::table('recordSorting')->insert([        
-        //     'sorting_by'    => $request->sorting_by,
-        //     'rog_number'    => $request->rog_number,
-        //     'part_number'   => $request->part_number, 
-        //     'PO'            => $request->PO,
-        //     'label_original'=> $request->label_original,
-        //     'status'        => $status,
-        //     'label_sorting' => $request->label_sorting,
-        //     'label_balance' => $request->label_balance       
-
-        // ]);   
-        
-        // $labelSorting = $request->label_sorting;
-        // $labelBalance = $request->label_balance;
 
         SplitLabel::where('id', $request->id)->update([
             'label_sorting' => $request->input('label_sorting'),

@@ -28,8 +28,6 @@
             ============================================ -->
         <script src="{{asset ('') }}js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
         <!-- jvectormap JS
-    
-      
             ============================================ -->
         <script src="{{asset ('') }}js/sparkline/jquery.sparkline.min.js"></script>
         <script src="{{asset ('') }}js/sparkline/sparkline-active.js"></script>
@@ -68,15 +66,17 @@
         {{-- <script src="{{asset ('') }}js/main.js"></script> --}}
         <!-- tawk chat JS
             ============================================ -->
-        {{-- <script src="{{asset ('') }}js/tawk-chat.js"></script> --}}
+       {{-- <script src="{{asset ('') }}js/tawk-chat.js"></script>  --}}
 
-        <script src="{{asset ('') }}js/dialog/sweetalert2.min.js"></script>
-        <script src="{{asset ('') }}js/dialog/dialog-active.js"></script>
+         <script src="{{asset ('') }}js/dialog/sweetalert2.min.js"></script>
+       
+       
+        <script src="{{asset ('') }}js/dialog/dialog-active.js"></script> 
 
-{{--
+
         <script src="{{asset ('') }}js/bootstrap.min.js"></script>
         <script src="{{asset ('') }}js/bootstrap.bundle.min.js"></script>
 
-        <script src="extensions/mobile/bootstrap-table-mobile.js"></script>
+      
        
 
