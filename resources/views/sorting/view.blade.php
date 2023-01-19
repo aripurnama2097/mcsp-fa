@@ -18,12 +18,15 @@
                     <div class="card  mb-5 shadow-lg "> --}}
                         <div class="card-body mb-3"> 
                             @foreach($data as $key => $value)                              
-                            <div class="breadcomb-list shadow-lg rounded">   
+                            <div class="breadcomb-list shadow-lg rounded">  
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn-outline-warning" onclick="closeForm()"><i class="notika-icon notika-refresh"></i>RESET</button>
+                                    </div> 
                                 <p class="mb-2 ">PART  NUMBER</p>
                                     <input class="font-weight-bold rounded border border-primary" type="text" name="part_number" value="{{$value->part_number}}"  id="part_number"  disabled>
                                     <br>        
                                     <br>                                                               
-                                    <h4 class="font-size:25px text-center text-primary">SPLIT LABEL</h4>
+                                    <h3 class="font-size:30px text-center">SPLIT LABEL</h4>
                                     {{-- <input class="text-center" type="hidden" name="rog_number" value="{{$value->id}}"  id="id"  disabled> --}}
                                     <input class="text-center" type="hidden" name="rog_number" value="{{$value->rog_number}}"  id="rog_number"  disabled>
                                     {{-- <input class="text-center" type="hidden" name="part_number" value="{{$value->part_number}}"  id="part_number"  disabled> --}}
@@ -32,10 +35,10 @@
                                    
                                     <input class="form-control form-control-lg mb-3 text-center border border-secondary" type="text" name="sorting_by" value="" id="sorting_by" maxlength="8" placeholder="SCAN NIK HERE" >                                
                                     <input class="form-control form-control-lg mb-4  text-center border border-secondary" type="text" name="label_original"  value="" id="label_original" placeholder="SCAN LABEL PART HERE" disabled> 
-                                    <input class="form-control form-control-lg mb-4  text-center border border-secondary" type="number" name="qty_split"  value="1" id="qty_split" placeholder="QTY" disabled>      
+                                    <input class="form-control form-control-lg mb-4  text-center border border-secondary" type="number" name="qty_split"  value="{{$value->qty_request}}" id="qty_split" placeholder="QTY" disabled>      
                                     {{-- onkeypress="getqty(event)"                                                                                          --}}
                                     <div class="d-flex justify-content-center">
-                                        <a type="submit" onclick="splitLabel()" class="btn btn-primary rounded btn-sm text-center">SPLIT LABEL</a>
+                                        <a type="submit" onclick="splitLabel()" class="btn btn-success rounded btn-sm text-center">SPLIT LABEL</a>
                                     </div>
                                     <h5 id="msg" class="card-text text-success"></h5>                        
                                     <audio id="audio">
@@ -187,6 +190,17 @@ function splitLabel(){
         })
     }
 }
+
+function closeForm() {
+                document.getElementById("result_NG").style.display = "none";             
+                $('#label_original').val('');
+             
+                $('#label_original').focus();
+                document.getElementById("label_original").value = "";
+               
+                $('#label_original').focus();
+                }
+
 function splitLabel_backup(){
     // $('#qty').on('keypress', function(e){
     var rog_number          = $('#rog_number').val();

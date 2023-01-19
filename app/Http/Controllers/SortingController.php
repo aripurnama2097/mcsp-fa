@@ -136,7 +136,9 @@ class SortingController extends Controller
         // sorting_by=>"37299"
         // status=>"PICKING"
 
-        $raw_nik = $request->sorting_by;
+        $nik = $request->sorting_by;
+        $raw_nik = substr($nik, 2,5);
+        
         $rog_number = $request->rog_number;
         $part_number = $request->part_number;
         $label_original = $request->label_original;
