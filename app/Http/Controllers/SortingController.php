@@ -125,62 +125,137 @@ class SortingController extends Controller
 
     }
 
-    
-
-   
-
-    public function generate  ($splitlabel)
-    {
-      
-        // $datas = DB::table('split_Label')->get();
-        $qrCode = QrCode::size(100)           
-                ->generate($splitlabel);
-
-        // return view('sorting.print',  compact('datas'));
-
-        // $qrCode1 ="tes";
-        // $qrCode = QrCode::size(200)->generate("a");
-        // $value = $splitlabel; 
-    
-        // $data2= DB::table('print_label')->insert([
-        //     'splitLabel'=> $value
-        //     ]);
-        
-            return view('sorting.generate',compact('qrCode'));      
-    }
-
-
-
     public function splitLabelnew(Request $request){
-        // 1. data request diinput ke database
-        // -----------------------------------
-        $rog_number     =   $request->rog_number;     
-        $part_number    =   substr("E31-1110-22A     1234567 40    I10827 A2B-0002-00    202211161618210132000030",0,11);
-        $po             =   substr("E31-1110-22A     1234567 40    I10827 A2B-0002-00    202211161618210132000030",16,7);
+        // return $request;
+        
+        // id=>"5"
+        // label_original=>"A2B-0002-00     1234567 30    I10827 A2B-0002-00    202211161618210132000002"
+        // part_number=>"A2B-0002-00"
+        // qty_split=>"8"
+        // rog_number=>"ROG1401"
+        // sorting_by=>"37299"
+        // status=>"PICKING"
+
+        $raw_nik = $request->sorting_by;
+        $rog_number = $request->rog_number;
+        $part_number = $request->part_number;
+        $label_original = $request->label_original;
+        $qty_split = $request->qty_split;
+        $status = $request->status;
+        $po = isset($label_original) ? substr($label_original,16,7) : 0;
+        $update_status ='SORTING';
+
+
+        $maxqty         = substr($label_original, 24,5); //QTY DI LABEL ORIGINAL
+        $splitqty2      = intval($maxqty) - intval( $qty_split); //LABEL BALANCE = (ORIGINAL - QTY SPLIT)
+        $startlabel     = substr($label_original, 0,24);//A2B-0002-00 1234567
+        $middlelabel    = substr($label_original, 30,22);// I10827 A2B-0002-00
+        $date_temp1     = date("YmdHis");
+        $microdate_temp1= microtime();
+        $microdate_temp2= explode(" ",$microdate_temp1);
+        $microdate      = substr($microdate_temp2[0], 2, -4);
+        $date           = $date_temp1 . $microdate;
+        $sequence1      = str_pad(1,6,"0", STR_PAD_LEFT);
+        $sequence2      = str_pad(2,6,"0", STR_PAD_LEFT);
+        $qty1           = str_pad($qty_split,5," ",STR_PAD_RIGHT);//QTY LABEL SORTING
+        $qty2           = str_pad($splitqty2,5," ",STR_PAD_RIGHT);//QTY LABEL BALANCE
+        $newlabel1      = $startlabel . $qty1 . ' ' . $middlelabel . $date . $sequence1;
+        $newlabel2      = $startlabel . $qty2 . ' ' . $middlelabel . $date . $sequence2;
+           
+        $label_sorting = $newlabel1;
+        $label_balance = $newlabel2;
+
       
-        $splitlabel     =   $request->label_original;
-        $raw_nik        =   $request->sorting_by; //2241312F
-        $splitqty       =   $request->qty_split;
+        
+        PartSorting::where("status",$status)
+        ->where("part_number",$part_number)
+        ->where("rog_number",$rog_number)
+        ->update(["status" => $update_status]);
         
         // INSERT INTO splitlabel
-        DB::table('record_sorting')->insert([        
+        DB::table('split_Label')->insert([        
             'sorting_by'    => $raw_nik,
             'rog_number'    => $rog_number,
             'part_number'   => $part_number, 
             'PO'            => $po,
-            'label_original'=> $splitlabel,
-            'qty_split'     => $splitqty        
-        ]);  
+            'label_original'=> $label_original,
+            'status'        => $update_status,
+            'qty_split'     => $qty_split,
+            'label_sorting' => $label_sorting,
+            'label_balance' => $label_balance
+                    
+        ]);   
 
+        $param = [
+            "raw_nik" => $raw_nik,
+            "rog_number" => $rog_number,
+            "part_number" => $part_number,
+            "label_original" => $label_original,
+            "qty_split" => $qty_split,
+            "status" => $status,
+            "po" => $po,
+            "part_sorting_id" => $request->id,
+            "label_sorting" => $label_sorting,
+            "label_balance" => $label_balance
+        ];
 
-        // 2. pecah qty
-        // -----------------------------------
-        // buat barcode
-        // print barcode
+        $get_location = $this->get_location_part($param);
+        $get_type = $this->get_type($param);
+        $get_suppliername = $this->get_supplierName($param);
+      
+        $param['lokasi'] = $get_location;
+        $param['type'] = $get_type;
+        $param['supplierName'] = $get_suppliername;
 
+        return [
+            "success" => true,
+            "param" => $param,
+            "message" => "print"
+        ];
 
     }
+    public function get_location_part($param){
+        $supplier = isset($param['label_original']) ? substr($param['label_original'],31,6) : "";
+        $partno = $param['part_number'];
 
+        $get_location = DB::connection("sqlsrv4")
+                ->select("SELECT lokasi from stdpack where suppcode = '{$supplier}' and partnumber= '{$partno}'");
+        return $get_location[0]->lokasi;   
+     
+    }
+
+    public function get_type($param){
+        $partno = $param['part_number'];
+        $get_type = DB::connection("sqlsrv5")
+                ->select("SELECT DISTINCT case imincl when '1' then 'DIRECT' else 'INSPECTION' end as sts_insp from sa96t where iprod = '". $partno ."'");
+        return $get_type[0]->sts_insp;
+        
+    }
+
+
+    public function get_supplierName($param){
+
+        $supplier = isset($param['label_original']) ? substr($param['label_original'],31,6) : "";
+        $supplierName=DB::connection("sqlsrv4")
+                ->select("SELECT SuppName from Supplier where SuppCode = '{$supplier}'");
+        $supplierName =  $supplierName[0]->SuppName;
+        $supplierName = substr($supplierName,0,9);
+
+        return $supplierName;
+        
+    // public function invoice ($param){
+        
+    // }
+                
+    }
+  
+    public function generate  ($label_sorting)
+    { 
+        $QRcode = QrCode::size(50)           
+                ->generate($label_sorting);
+        
+            return view('sorting.generate',compact('QRcode'));      
+    }
 
     public function scanBalance(Request $request){
 
@@ -194,13 +269,6 @@ class SortingController extends Controller
 
 
     }   
-        
-       
-
-
-
-
-    
 
 }
 

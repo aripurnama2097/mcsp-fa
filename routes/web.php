@@ -68,11 +68,16 @@ Route::resource('/dashboard/help', DashboardHelpController::class)->middleware('
 
 
 // -------ROUTE AKSES LIST PART ROG---------------------------------------------------------------
-Route::resource('/register_part', RegisterPartController::class);
+// Route::resource('/register_part', RegisterPartController::class);
 
-Route::post('/register_part/create/', [RegisterPartController::class,'create']);
+Route::get('/register_part', [RegisterPartController::class, 'index']);
+
+// Route::post('/register_part/create/', [RegisterPartController::class,'create']);
+
 // CREATE REGISTER PART WITH MODEL
 Route::post('/register_part/createPart/', [RegisterPartController::class,'createPart']);
+
+Route::post('/register_part/update/{id}', [RegisterPartController::class,'update']);
 // ROUTE CONFIRM
 Route::post('/register_part/confirm/', [RegisterPartController::class,'confirm']);
 
@@ -85,7 +90,7 @@ Route::get('/picking/detail/{id}', [PickingController::class,'detail']);
 //ROUTE COMPARE(INSERT DATA KEDATABASE)
 Route::post('/picking/detail/', [PickingController::class,'storeData']);
 //ROUTE view hasil compare)
-Route::get('/picking/detail/{id}/result/', [PickingController::class,'resultCompare']);
+Route::get('/picking/detail/result/', [PickingController::class,'resultCompare']);
 
 
 
@@ -94,12 +99,13 @@ Route::get('/sorting', [SortingController::class,'index']);
 // INPUTAN SPLIT LABEL AND INSERT TO TABLE SPLIT_LABEL
 Route::get('/sorting/view/{id}', [SortingController::class,'view']);
 // ROUTE UNTUK SPLIT LABEL
-Route::post('/sorting/view/{id}',    [SortingController::class,'splitLabel']);
+// Route::post('/sorting/view/{id}',    [SortingController::class,'splitLabel']);
+Route::post('/sorting/view/split',    [SortingController::class,'splitLabelnew']);
+// Route::get('/sorting/view/printLabel',    [SortingController::class,'printLabel']);
 
-// TAMPILKAN HASIL GENERATE QR DAN MENU LABEL BALANCE SCAN
-Route::get('/sorting/view/{id}/generate',    [SortingController::class,'generate']);
+
 // UPDATE TABLE SPLIT_LABEL AND INSERT BALANCE SCAN
-Route::get('/sorting/view/{id}/generate/update', [SortingController::class,'scanBalance']);
+// Route::get('/sorting/view/{id}/generate/update', [SortingController::class,'scanBalance']);
 
 
 // -------ROUTE BALANCE--------------------------------------------------------------
