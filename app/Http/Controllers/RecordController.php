@@ -29,7 +29,7 @@ class RecordController extends Controller
 
         // $data = RecordSorting::whereBetween('shorting_date', [$date,$date2])->get();
 
-        $data = DB::table('recordSorting')
+        $data = DB::table('split_Label')
         ->whereDate('shorting_date','>=', $date)
         ->whereDate ('shorting_date','<=', $date2)
         ->get();
@@ -46,10 +46,11 @@ class RecordController extends Controller
         $start_date = $request->input('start_date');
         $end_date =  $request->input('end_date');
         // $data = RecordSorting::whereBetween('shorting_Date', [$start_date, $end_date])->get();
-        $data = DB::table('recordSorting')
+        $data = DB::table('split_Label')
         ->whereDate('shorting_date','>=',  $start_date)
         ->whereDate ('shorting_date','<=',   $end_date)
         ->get();
+        
         return Excel::download(new RecordExport($data), 'filtered_data.csv');
     }
 
