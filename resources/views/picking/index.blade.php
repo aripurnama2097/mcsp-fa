@@ -66,6 +66,9 @@
                                                     <?php if ($value->status =='SELECT'){?>
                                                         <a href="{{ url('/picking/detail/' . $value->id . '') }}"
                                                         class="btn btn-success btn-sm">PICKING</a>
+
+                                                        {{-- <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#compareModal"><i class="notika-icon notika-edit mb-3"></i>PICKING</i>		
+                                                        </button> --}}
                                                     <?php }?>
                                                 </div>
                                                 <br>

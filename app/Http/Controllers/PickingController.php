@@ -28,25 +28,16 @@ class PickingController extends Controller
 
     public function resultCompare()
     { 
-    // SEND DATA TO LIST SORTING
-        $data = Compare::orderBy('id')
-        ->where('id')->get();
-        // ->where('part_number')->get();
-        return response()->json($data);   
+        $data = Compare::orderBy('id')->get();
+        return response()->json($data);
+
+        // $data = DB::table('part_sorting')->where('id', $id)->first();
+        // return response()->json($data);
     }
  
     public function storeData(Request $request){
-        // return $request;
-
-        // part_number => "A6C-111-22"
-        // picking_by => "41312"
-        // rog_number => "ROG123"
-        // scan_label => "A2B-0128-20     1234567 40    I10827 A2B-0002-00    202211161618210132000030"
-        // status => "SELECT"
-
-        $update_status = "PICKING";
-        // $label_qty= substr("A2B-0128-20     1234567 40    I10827 A2B-0002-00    202211161618210132000030",23,3);
-
+    
+        $update_status      = "PICKING";
         $raw_nik          = $request->picking_by;
         $nik              =  substr($raw_nik, 2,5); 
         $labelQty         = $request->scan_label;
@@ -74,16 +65,31 @@ class PickingController extends Controller
             'rog_number'=>$request->rog_number,
             'part_number'=>$request->part_number,
             'status'=>$update_status,
-            'picking_by'=>$nik,
+            // 'picking_by'=>$nik,
             'scan_label'=>$request->scan_label,
             'qty_scan'=>$label_qty,
             'qty_request'=>$request->qty_request,
+       
             
-        ]);       
+        ]);     
+        
+        $resultPicking = 'OK';
 
+        $param = [
+            "part_picking_id" => $request->id,
+            // "picking_by" => $nik,
+            "rog_number" => $request->rog_number,
+            "part_number" => $request->part_number,
+            "scan_label" => $request->scan_label,
+            "qty_scan" =>  $label_qty,  
+            "status" => $resultPicking,   
+        ];
+
+      
             return [
-                "success" => true
-            ];     
+               
+                "param" => $param,       
+                ];
     }         
 }   
 
