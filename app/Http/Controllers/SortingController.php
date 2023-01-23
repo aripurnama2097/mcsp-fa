@@ -138,7 +138,7 @@ class SortingController extends Controller
 
         $nik = $request->sorting_by;
         $raw_nik = substr($nik, 2,5);
-        
+
         $rog_number = $request->rog_number;
         $part_number = $request->part_number;
         $label_original = $request->label_original;
@@ -220,7 +220,7 @@ class SortingController extends Controller
         $supplier = isset($param['label_original']) ? substr($param['label_original'],31,6) : "";
         $partno = $param['part_number'];
 
-        $get_location = DB::connection("sqlsrv4")
+        $get_location = DB::connection("sqlsrv5")
                 ->select("SELECT lokasi from stdpack where suppcode = '{$supplier}' and partnumber= '{$partno}'");
         return $get_location[0]->lokasi;   
      
@@ -238,16 +238,14 @@ class SortingController extends Controller
     public function get_supplierName($param){
 
         $supplier = isset($param['label_original']) ? substr($param['label_original'],31,6) : "";
-        $supplierName=DB::connection("sqlsrv4")
+        $supplierName=DB::connection("sqlsrv5")
                 ->select("SELECT SuppName from Supplier where SuppCode = '{$supplier}'");
         $supplierName =  $supplierName[0]->SuppName;
         $supplierName = substr($supplierName,0,9);
 
         return $supplierName;
         
-    // public function invoice ($param){
-        
-    // }
+    
                 
     }
   
