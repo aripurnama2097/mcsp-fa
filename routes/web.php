@@ -54,12 +54,14 @@ Route::get('/home', function() {
     return view('home'); })->name('home')->middleware('auth');
 
 // LOGIN
-Route::get('/login',[LoginController::class, 'index'])->name('login')->middleware('guest'); // penamaan route login
+Route::get('/login',[LoginController::class, 'index'])->name('login'); //->middleware('guest'); // penamaan route login
 Route::post('/login',[LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']); // method lgogout
+
 // Routing Register User
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
+
 
 // FORGOT PASSWORD
 Route::get('/forgot_password', [ForgotController::class, 'index'])->middleware('auth');
@@ -70,16 +72,17 @@ Route::resource('/dashboard/help', DashboardHelpController::class)->middleware('
 // -------ROUTE AKSES LIST PART ROG---------------------------------------------------------------
 // Route::resource('/register_part', RegisterPartController::class);
 
-Route::get('/register_part', [RegisterPartController::class, 'index']);
+Route::get('/register_part', [RegisterPartController::class,'index'])->name('register.part')->middleware('auth');
+Route::resource('/register_part', RegisterPartController::class)->middleware('auth');
 
 // Route::post('/register_part/create/', [RegisterPartController::class,'create']);
 
 // CREATE REGISTER PART WITH MODEL
-Route::post('/register_part/createPart/', [RegisterPartController::class,'createPart']);
+Route::post('/register_part/createPart/', [RegisterPartController::class,'createPart'])->middleware('auth');
 
-Route::post('/register_part/update/{id}', [RegisterPartController::class,'update']);
+Route::post('/register_part/update/{id}', [RegisterPartController::class,'update'])->middleware('auth');
 // ROUTE CONFIRM
-Route::post('/register_part/confirm/', [RegisterPartController::class,'confirm']);
+Route::post('/register_part/confirm/', [RegisterPartController::class,'confirm'])->middleware('auth');
 
 
 
@@ -90,7 +93,7 @@ Route::get('/picking/detail/{id}', [PickingController::class,'detail']);
 //ROUTE COMPARE(INSERT DATA KEDATABASE)
 Route::post('/picking/detail/', [PickingController::class,'storeData']);
 //ROUTE view hasil compare)
-Route::get('/picking/detail/result/', [PickingController::class,'resultCompare']);
+Route::get('/picking/detail/{id}/result/', [PickingController::class,'resultCompare']);
 
 
 
@@ -109,7 +112,7 @@ Route::post('/sorting/view/split',    [SortingController::class,'splitLabelnew']
 
 
 // -------ROUTE BALANCE--------------------------------------------------------------
-Route::get('/balance', [BalanceController::class,'index']);
+Route::get('/balance', [BalanceController::class,'index'])->middleware('auth');
 Route::get('/balance/view/{id}', [BalanceController::class,'view']);
 Route::post('/balance/view/{id}/insert', [BalanceController::class,'insert']);
 

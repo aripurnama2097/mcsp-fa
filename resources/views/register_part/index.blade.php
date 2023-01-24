@@ -5,26 +5,43 @@
  <body  class="responsive">  
 	<div class="breadcomb-area ">	
 		<div class="container">	
+		<div>
 			
-			<div class="col-lg-12 shadow-sm rounded border border-secondary">
+			</div>						
+			<div class="col-lg-12 shadow-sm rounded ">
 				<div class="breadcomb-list rounded-3">
 					<div class="row border-success">
-						<div class="col-lg-6 border-success">
-							<div class="breadcomb-wp border-success ">
-								<div class="breadcomb-icon">
-									
-								</div>
-								<div class="breadcomb-ctn ">
+						<div class="col-12 border-success">
+							<div class="breadcomb-wp border-success">						
+								<div class="breadcomb-ctn col-6">
 									<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#createModal"><i class="notika-icon notika-edit mb-3"></i>CREATE</i>		
 									</button>
-									<br>
-									
 								</div>
-							</div>					
-						</div>
-						<br>
-						<br>
-						
+								
+								<form action="{{url('/logout')}}" method="post" class="col-5 text-right">
+									@csrf
+									<button type="submit" class="btn btn-danger"> <i class="bi bi-arrow-left-square"></i>
+										Logout</button>
+								</form>
+							{{-- <div>
+								@auth
+								<li class="nav-item dropdown" class="col-5 text-right">
+									<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										Welcome {{auth()->user()->name}}
+									</a>
+									<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+										<li>
+										<form action="{{url('/logout')}}" method="post">
+											@csrf
+											<button type="submit" class="dropdown-item"> <i class="bi bi-box-arrow-left">
+											</i>Logout</a></button>
+										</form>
+										</li>
+									</ul>
+									</li>							
+								@endauth										
+							</div>					 --}}
+						</div>				
 					</div>
 				</div>
 			</div>
@@ -33,7 +50,7 @@
 			<!-- Button trigger modal -->
 			<div class="row">
 				<div class="col-lg-12  ">
-					<div class="breadcomb-list shadow-lg rounded-2 rounded border border-secondary">					
+					<div class="breadcomb-list shadow-lg rounded-2 rounded ">					
 								<div class="breadcomb-wp">
 									<div class="breadcomb-icon">
 										{{-- <i class="notika-icon notika-form"></i> --}}
@@ -47,18 +64,18 @@
 								 @if(Session::has('success'))
 									<p class="alert alert-success">{{Session::get('success')}}</p>
 								@endif
-
+								<h4 class="text-center">PART REQUEST</h4>
 								<form action="{{url('register_part')}}" method="GET">			
-										<input type="text" name="keyword"  value="" class="form-control mb-2 pad-l20" placeholder="Search..." autofocus>
-										<button class="btn btn-primary btn-sm" type="submit" ><i class="bi bi-search"></i>SUBMIT</button>
+										<input type="text" name="keyword"  value="" class="form-control mb-2 pad-l20 border border-secondary" placeholder="Search..." autofocus>
+										<button class="btn btn-primary btn-sm" type="submit" ><i class="bi bi-search"></i>SEARCH</button>
 										<br>
 										<br>											
 								</form>		
 								{{-- <div class="table-responsive"> --}}
-									<div class="card card-success">
-										<h4 class="text-center">PART REQUEST</h4>
-										<div class="container">
-											<div class="row">
+									<div class="card card-success ">
+										
+										<div class="container mt-4">
+											<div class="row ">
 												<div class="col-xs-12">
 													<div class="table table-hover shadow-xl table-sm table-responsive-xxl">
 													<table  class="table table-hover shadow-smm mb-5"  cellspacing="2">
@@ -85,10 +102,10 @@
 																<td class="text-center">{{$value->qty_request}} </td>
 																<td class="text-center">										
 																<?php if ($value->status == 'SELECT') {
-																		echo '<span class= "badge text-bg-light badge-font-size:20px;">WAITING PICKING</span>';
+																		echo '<span class= "badge text-bg-light badge-font-size:20px;">WAITING SORTING</span>';
 																	} ?>
-																 <?php if ($value->status == 'PICKING') {
-																		echo '<span class= "badge text-bg-primary">PICKING</span>';
+																 <?php if ($value->status == 'SORTING') {
+																		echo '<span class= "badge text-bg-primary">SORTING</span>';
 																	} ?>  
 																<?php if ($value->status == 'DONE') {
 																	echo '<span class= "badge text-bg-success">DONE</span>';
@@ -98,6 +115,11 @@
 																<td class="text-center">{{$value->register_by}} </td>
 																<td class="row">
 																<div class="btn-group">
+
+																	{{-- <a class="btn btn-outline-warning btn-sm mb-3 margin-right:20px" data-bs-toggle="modal" data-bs-target="#updateModal_{{$value->id}}">UPDATE</i>		
+																	</a> --}}
+
+																
 																	<a class="btn btn-outline-warning btn-sm mb-3 margin-right:20px  " href="{{url('register_part/' .$value->id. '/edit')}}"><i class="notika-icon notika-edit"></i>UPDATE</a>																	
 																	<form action="{{url('/register_part/'.$value->id)}}" method="POST" onsubmit="return confirm('Delete Part Data?')">
 																		@method('delete')
@@ -106,6 +128,92 @@
 																		<button type="submit" class="btn btn-outline-danger btn-sm" ><i class="notika-icon notika-trash"></i>DELETE</button> 
 																	</form>	
 
+
+																	<div class="modal fade" id="updateModal_{{$value->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+																		<div class="modal-dialog modal-lg">
+																		  <div class="modal-content">
+																			<div class="modal-header">
+																			  <h1 class="modal-title fs-5" id="exampleModalLabel">UPDATE DATA</h1>
+																			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																			</div>
+																			<div class="modal-body">
+																				<form action="register_part/update/{{$value->id}}" method="POST">
+																					@csrf
+   																					 {{-- @method('PUT') --}}
+																					<div class="breadcomb-area rounded">
+																						<div class="container">
+																							<div class="row">				
+																								<div class="col-lg-12 ">
+																									<div class="form-group ic-cmp-int">
+																										<div class="form-ic-cmp">
+																											<i class="notika-icon notika"></i>
+																										</div>
+																										<div class="nk-int-st">
+																										<input type="text" class="form-control mb-3" name="rog_number" placeholder="ROG NUMBER" value="{{$value->rog_number}}"required>
+																										@foreach ($errors->get('rog_number') as $msg)
+																										<p class="text-danger">{{$msg}} </p>
+																											@endforeach
+																										</div>
+																									</div>
+																								</div>
+																							</div>
+																				
+																							<div class="row">
+																								<div class="col-lg-12 ">
+																									<div class="form-group ic-cmp-int">
+																										<div class="form-ic-cmp">
+																											<i class="notika-icon notika"></i>
+																										</div>
+																										<div class="nk-int-st">
+																											<input type="text" class="form-control mb-3"
+																												name="part_number" placeholder="PART NUMBER" value="{{$value->part_number}}"required>
+																										</div>
+																									</div>
+																								</div>
+																							</div>
+																	
+																							<div class="row">
+																								<div class="col-lg-12 ">
+																									<div class="form-group ic-cmp-int">
+																										<div class="form-ic-cmp">
+																											<i class="notika-icon notika-part"></i>
+																										</div>
+																										<div class="nk-int-st">
+																											<input type="text" class="form-control mb-3"
+																												name="qty_request" placeholder="QTY" value="{{$value->qty_request}}"required >
+																										</div>
+																									</div>
+																								</div>
+																							</div>
+																	
+																							<div class="row">
+																								<div class="col-lg-12 ">
+																									<div class="form-group ic-cmp-int">
+																										<div class="form-ic-cmp">
+																											<i class="notika-icon notika-part"></i>
+																										</div>
+																										<div class="nk-int-st">
+																											<input type="text" class="form-control mb-3"
+																												name="register_by" placeholder="REGISTER BY" value="{{$value->register_by}}"required>
+																											
+																										</div>
+																									</div>
+																								</div>
+																							</div>																
+																								<div class="modal-footer">
+																								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+																								<button type="submit" class="btn btn-primary">Save changes</button>
+																								</div>
+																		
+																							</div>
+																						</div>
+																					</div>
+																				</form>
+																			</div>
+																			
+																		  </div>
+																		</div>
+																	</div>
 																
 																</div>
 																<br>				 
@@ -149,7 +257,7 @@
 
 
 
-
+ {{-- href="{{url('register_part/' .$value->id. '/edit')}} --}}
 
 {{-- MODAL CREATE --}}
  <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -264,90 +372,7 @@
 
 
 
-{{-- <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <h1 class="modal-title fs-5" id="exampleModalLabel">REGISTER PART</h1>
-		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		</div>
-		<div class="modal-body">
-			<form action="{{ url('register_part/' . $model->id) }}" method="post">
-				@csrf
-				<div class="breadcomb-area rounded">
-					<div class="container">
-						<div class="row">				
-							<div class="col-lg-12 ">
-								<div class="form-group ic-cmp-int">
-									<div class="form-ic-cmp">
-										<i class="notika-icon notika"></i>
-									</div>
-									<div class="nk-int-st">
-									<input type="text" class="form-control mb-3" name="rog_number" placeholder="ROG NUMBER" required>
-									@foreach ($errors->get('rog_number') as $msg)
-									<p class="text-danger">{{$msg}} </p>
-										@endforeach
-									</div>
-								</div>
-							</div>
-						</div>
-			
-						<div class="row">
-							<div class="col-lg-12 ">
-								<div class="form-group ic-cmp-int">
-									<div class="form-ic-cmp">
-										<i class="notika-icon notika"></i>
-									</div>
-									<div class="nk-int-st">
-										<input type="text" class="form-control mb-3"
-											name="part_number" placeholder="PART NUMBER" required>
-									</div>
-								</div>
-							</div>
-						</div>
 
-						<div class="row">
-							<div class="col-lg-12 ">
-								<div class="form-group ic-cmp-int">
-									<div class="form-ic-cmp">
-										<i class="notika-icon notika-part"></i>
-									</div>
-									<div class="nk-int-st">
-										<input type="text" class="form-control mb-3"
-											name="qty_request" placeholder="QTY"required >
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-lg-12 ">
-								<div class="form-group ic-cmp-int">
-									<div class="form-ic-cmp">
-										<i class="notika-icon notika-part"></i>
-									</div>
-									<div class="nk-int-st">
-										<input type="text" class="form-control mb-3"
-											name="register_by" placeholder="REGISTER BY" required>
-										
-									</div>
-								</div>
-							</div>
-						</div>																
-							<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary">Save changes</button>
-							</div>
-	
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-		
-	  </div>
-	</div>
-</div> --}}
 
 <div class="modal fade" id="modal_confirm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog bg-cyan">

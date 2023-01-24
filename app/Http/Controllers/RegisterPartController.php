@@ -19,7 +19,7 @@ class RegisterPartController extends Controller
      */
     public function index(Request $request)
     {      
-        $pagination =3; 
+        $pagination =6; 
         
 
     //    $data_part = MasterPart::distinct('PART_NO')->pluck('PART_NO');
@@ -35,7 +35,7 @@ class RegisterPartController extends Controller
                 ->orWhere('status', 'LIKE', '%'.$keyword.'%')
                 ->orWhere('register_at', 'LIKE', '%'.$keyword.'%')
                 ->orWhere('register_by', 'LIKE', '%'.$keyword.'%')
-                ->latest()->paginate(3);
+                ->latest()->paginate(6);
                 // ->orderBy('id','asc');
                 $data->withPath('register_part');
                 $data->appends($request->all());
@@ -75,9 +75,9 @@ class RegisterPartController extends Controller
     public function createPart(Request $request)
     {
         // $data_part = MasterPart::distinct('PART_NO')->pluck('PART_NO');
-        $data_part= MasterPart::distinct('partnumber')
-          ->whereRaw('year(input_date) > 2020')
-          ->pluck('partnumber');
+        // $data_part= MasterPart::distinct('partnumber')
+        //   ->whereRaw('year(input_date) > 2020')
+        //   ->pluck('partnumber');
          RegisterPart ::create($request->all());
     
         
@@ -125,9 +125,9 @@ class RegisterPartController extends Controller
     {
         $model = RegisterPart::find($id);
         //    $data_part = MasterPart::distinct('PART_NO')->pluck('PART_NO');
-           $data_part = MasterPart::distinct('partnumber')
-           ->whereRaw('year(input_date) > 2020')
-           ->pluck('partnumber');
+        //    $data_part = MasterPart::distinct('partnumber')
+        //    ->whereRaw('year(input_date) > 2020')
+        //    ->pluck('partnumber');
         //    return $data_part;
         //    $part=[$data_part['PART_NO']];
             // return $data_part;        
@@ -147,7 +147,7 @@ class RegisterPartController extends Controller
     {
         $model = RegisterPart::find($id);
         
-        $model->rog_number = $request->rog_number;
+        $model->rog_number  = $request->rog_number;
         $model->part_number = $request->part_number;
         $model->qty_request = $request->qty_request;
         $model->register_by = $request->register_by;
