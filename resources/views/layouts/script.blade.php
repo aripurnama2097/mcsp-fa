@@ -2,7 +2,10 @@
 		============================================ -->
         <!-- bootstrap JS
             ============================================ -->
-        <script src="{{asset ('') }}bootstrap-5/js/bootstrap.min.js"></script>
+        {{-- <script src="{{asset ('') }}js/bootstrap.min.js"></script> --}}
+
+        <script src="{{asset ('') }}js/bootstrap.min_5.js"></script>
+        {{-- <script src="{{asset ('') }}bootstrap-5/js/bootstrap.min.js"></script> --}}
         <!-- wow JS
             ============================================ -->
         <script src="{{asset ('') }}js/wow.min.js"></script>
@@ -17,7 +20,9 @@
         <script src="{{asset ('') }}js/jquery.scrollUp.min.js"></script>
         <!-- meanmenu JS
             ============================================ -->
-        <script src="{{asset ('') }}js/meanmenu/jquery.meanmenu.js"></script>
+        {{-- <script src="{{asset ('') }}js/meanmenu/jquery.meanmenu.js"></script> --}}
+
+        <script src="{{asset ('') }}js/meanmenu/jquery.meanmenu_5.js"></script>
         <!-- counterup JS
             ============================================ -->
         <script src="{{asset ('') }}js/counterup/jquery.counterup.min.js"></script>
@@ -46,20 +51,23 @@
             ============================================ -->
         <script src="{{asset ('') }}js/wave/waves.min.js"></script>
         <script src="{{asset ('') }}js/wave/wave-active.js"></script>
-
-
-         <!--  Chat JS
-            ============================================ -->
-        <script src="{{asset ('') }}js/chat/moment.min.js"></script>
-        <script src="{{asset ('') }}js/chat/jquery.chat.js"></script>
-        <!--  todo JS
-            ============================================ -->
+        
+        
+       <!--  todo JS
+           ============================================ -->
         <script src="{{asset ('') }}js/todo/jquery.todo.js"></script>
+
 
 
         <!-- plugins JS
             ============================================ -->
         <script src="{{asset ('') }}js/plugins.js"></script>
+
+
+        <!--  Chat JS
+            ============================================ -->
+            <script src="{{asset ('') }}js/chat/moment.min.js"></script>
+            <script src="{{asset ('') }}js/chat/jquery.chat.js"></script>
 
         <!-- main JS
             ============================================ -->
@@ -73,8 +81,6 @@
        
         <script src="{{asset ('') }}js/dialog/dialog-active.js"></script> 
 
-
-        <script src="{{asset ('') }}js/bootstrap.min.js"></script>
         <script src="{{asset ('') }}js/bootstrap.bundle.min.js"></script>
 
       
