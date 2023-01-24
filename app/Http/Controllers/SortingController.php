@@ -6,10 +6,11 @@ use App\Models\MasterEmployee;
 use Illuminate\Http\Request;
 use App\Models\PartSorting;
 use App\Models\SplitLabel;
-use App\Models\RegisterPart;
+use App\Models\MasterPart;
 use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Models\RecordSorting;
+use App\Models\SupplierMaster;
 
 
 class SortingController extends Controller
@@ -71,7 +72,7 @@ class SortingController extends Controller
           
 
 
-          $update_status ='SORTING';
+          $update_status ='DONE';
           PartSorting::where("status",$request->status)
           ->where("part_number",$request->part_number)
           ->where("rog_number",$request->rog_number)
@@ -88,36 +89,7 @@ class SortingController extends Controller
               'qty_split'     => $splitqty        
           ]);   
   
-            // $dataSplit =[
-            //     "maxqty"         => $maxqty ,// QTY LABEL ORIGINAL
-            //     "splitqty2"      => $splitqty2,
-            //     "startlabel"     => $startlabel,
-            //     "middlelabel"    => $middlelabel,
-            //     "date_temp1"     => $date,
-            //     "microdate_temp1"=> $microdate_temp1,
-            //     "microdate_temp2"=> $microdate_temp2,
-            //     "microdate"      => $microdate,
-            //     "date"           => $date,
-            //     "sequence1"      => $sequence1,
-            //     "sequence2"      => $sequence2,
-            //     "qty1"           => $qty1,
-            //     "qty2"           => $qty2,
-            //     "newlabel1"      => $newlabel1,
-            //     "newlabel2"      => $newlabel2,
-            //     "newlabel1_name" => $newlabel1_name,
-            //     "newlabel2_name" => $newlabel2_name,
-
-            // ];     
-            
-        
-            // $request->session()->put('newlabel1_name');
-
-            //EXTEND DATA TO GENERATE METHOD
-            $this->generate($splitlabel);
-
-            // return view('sorting.print', compact(
-            //     'dataSplit'
-            // )); 
+         
             
 
             return response()->json(['redirect' => '{id}/generate']);
@@ -145,7 +117,7 @@ class SortingController extends Controller
         $qty_split = $request->qty_split;
         $status = $request->status;
         $po = isset($label_original) ? substr($label_original,16,7) : 0;
-        $update_status ='SORTING';
+        $update_status ='DONE';
 
 
         $maxqty         = substr($label_original, 24,5); //QTY DI LABEL ORIGINAL
@@ -220,14 +192,18 @@ class SortingController extends Controller
         $supplier = isset($param['label_original']) ? substr($param['label_original'],31,6) : "";
         $partno = $param['part_number'];
 
-        $get_location = DB::connection("sqlsrv5")
-                ->select("SELECT lokasi from stdpack where suppcode = '{$supplier}' and partnumber= '{$partno}'");
+        $get_location = DB::connection("sqlsrv2")
+                        ->select("SELECT lokasi from stdpack where suppcode = '{$supplier}' and partnumber= '{$partno}'");
+        // $get_location = MasterPart::select("lokasi")->where('suppcode',$supplier)->where('partnumber',$partno);
+
+        // $get_location = DB::table('stdpack')->select('lokasi')->where('suppcode', $supplier)->where('part_number', $partno);
+        
         return $get_location[0]->lokasi;   
      
     }
 
     public function get_type($param){
-        $partno = $param['part_number'];
+    $partno = $param['part_number'];
         $get_type = DB::connection("sqlsrv5")
                 ->select("SELECT DISTINCT case imincl when '1' then 'DIRECT' else 'INSPECTION' end as sts_insp from sa96t where iprod = '". $partno ."'");
         return $get_type[0]->sts_insp;
@@ -238,8 +214,13 @@ class SortingController extends Controller
     public function get_supplierName($param){
 
         $supplier = isset($param['label_original']) ? substr($param['label_original'],31,6) : "";
-        $supplierName=DB::connection("sqlsrv5")
-                ->select("SELECT SuppName from Supplier where SuppCode = '{$supplier}'");
+        $supplierName=DB::connection("sqlsrv2")
+                            ->select("SELECT SuppName from Supplier where SuppCode = '{$supplier}'");
+
+        // $supplierName=SupplierMaster::select("SuppName")->where('SuppCode', $supplier);
+        // $supplierName = DB::table('Supplier')->select('SuppName')->where('Suppcode', $supplier);
+
+
         $supplierName =  $supplierName[0]->SuppName;
         $supplierName = substr($supplierName,0,9);
 

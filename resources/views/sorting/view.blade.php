@@ -46,8 +46,10 @@
                                     </audio>
                                        <label class="text-center font-weight-bold text-success" id="result_OK"  style="font-size:50px;"> 
                                        </label>
+                                       <div class="d-flex justify-content-center">
                                        <label class="text-center font-weight-bold text-danger" id="result_NG" style="font-size:50px;"> 
                                        </label>  
+                                      </div>
 
                                 </div>
                                 @endforeach                 

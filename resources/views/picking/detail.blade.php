@@ -12,17 +12,18 @@
             </div>
             <br>
 
-            <div class="col">
+            <div class="col-12">
                 <div class="accordion" id="accordionExample">
                     <div class="card  mb-5 shadow-lg ">
                         <div class="card-body ">
                                 @foreach($data as $key => $value)
                                 <div class="breadcomb-list">
-                                    <br>
-                                    <div class="d-flex justify-content-end">
-                                    <button type="button" class="btn btn-primary" onclick="closeForm()"><i class="notika-icon notika-refresh"></i>RESET</button>
+                                  
+                                    <div class="d-flex justify-content-end mr-1 col-12">
+                                    <button type="button" class="btn btn-primary btn-sm rounded-3" onclick="closeForm()"><i class="notika-icon notika-refresh"></i>  RESET</button>
                                     </div>
                                     <input class="text-center" type="hidden" name="rog_number" value="{{$value->rog_number}}"  id="rog_number"  disabled>
+                                    <br>
                                     <p class="mb-2">PART  NUMBER</p>
                                     <input class="font-weight-bold" type="text" name="part_number" value="{{$value->part_number}}"  id="part_number"  disabled>
                                     <br>
@@ -39,8 +40,11 @@
                                     </audio>
                                     <label class="text-center font-weight-bold text-success" id="result_OK"  style="font-size:50px;">
                                     </label>
-                                    <label class="text-center font-weight-bold text-danger" id="result_NG" style="font-size:50px;">
-                                    </label>
+                                    <div class="d-flex justify-content-center">
+                                        <label class="text-center font-weight-bold text-danger" id="result_NG" style="font-size:50px;">
+                                        </label>
+                                    </div>
+                                   
                                     @endforeach
                                  </form>
                                 </div>
@@ -184,8 +188,6 @@
 	// 			}
     //         })
     //     });
-
-
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -221,19 +223,26 @@
 
                             console.log(data);
                          
-                                        $.each(data, function(index, value) {
-                                            data = data + "<tr>"
-                                           
-                                            data = data + "<td>"+value.rog_number+"</td>"
-                                            data = data + "<td>"+value.part_number+"</td>"
-                                            data = data + "<td>"+value.scan_label+"</td>"
-                                            data = data + "<td>"+value.qty_scan+"</td>"
-                                            data = data + "<td>"+value.status+"</td>"
-                                            // data = data + "<td>"+value.picking_by+"</td>"
-                                            // data = data + "<td>"+value.picking_at+"</td>"
-                                            data = data + "</tr>"
+                                $.each(data, function(index, value) {
+                                    data = data + "<tr>"
+                                    
+                                    data = data + "<td>"+value.rog_number+"</td>"
+                                    data = data + "<td>"+value.part_number+"</td>"
+                                    data = data + "<td>"+value.scan_label+"</td>"
+                                    data = data + "<td>"+value.qty_scan+"</td>"
+                                    if(value.status == "OK"){
+                                        data = data + "<td class='hijau'>"+value.status+"</td>"
+                                    }
+                                    else{
+                                        data = data + "<td class='merah'>"+value.status+"</td>"
+                                    }
+                                    // data = data + "<td>"+value.picking_by+"</td>"
+                                    // data = data + "<td>"+value.picking_at+"</td>"
+                                    data = data + "</tr>"
                                 })
                                 $('tbody').html(data);
+                                $('.hijau').css('color','green');
+                                $('.merah').css('color','red');
                         }              
                       })
                     }
@@ -264,7 +273,8 @@
                
                 $('#scan_label').focus();
                 }
-
+                
+              
               
 
 </script>

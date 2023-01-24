@@ -32,47 +32,52 @@
                                 <thead class="table-dark">
                                     <tr>
                                         <th class="text-center text-white">NO</th>
-                                        <th class="text-center text-white">ROG NUMBER</th>
+                                        <th class="text-center text-white">ACTION </th>                        
                                         <th class="text-center text-white">PART NUMBER</th>
+                                        <th class="text-center text-white">ROG NUMBER</th>
                                         <th class="text-center text-white">QTY REQUEST</th>
-                                        <th class="text-center text-white">STATUS</th>
-                                        <th class="text-center text-white">ACTION </th>
+                                        <th class="text-center text-white">STATUS</th>                                
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data as $key => $value)
+                                    @foreach ($data as $key => $value)                                 
                                         <tr>
+                                            <?php if ($value->status == 'SELECT') {
+                                                echo '<tr style="background-color: rgb(144, 144, 144);">';
+                                            } else {
+                                                echo '<tr style="background-color:#69dec1;">';
+                                                    // echo '<tr style="background-color:#00c292;">';
+                                            }?>       
                                             <td class="text-black text-center">{{ ++$i }}
-                                            </td>
-                                            <td class="text-black text-center">
-                                                {{ $value->rog_number }} </td>
-                                            <td class="text-black text-center">
-                                                {{ $value->part_number }} </td>
-                                            <td class="text-black text-center">
-                                                {{ $value->qty_request }} </td>
-                                            <td class="text-black text-center">
-                                                <?php if ($value->status == 'SELECT') {
-                                                    echo '<span class= "badge text-bg-warning badge-font-size:20px;">BEFORE PICKING</span>';
-                                                } ?>
-                                                <?php if ($value->status == 'PICKING') {
-                                                    echo '<span class= "badge text-bg-primary">SUCCESS</span>';
-                                                } ?>
-                                                <?php if ($value->status == 'SORTING') {
-                                                    echo '<span class= "badge text-bg-success">DONE</span>';
-                                                } ?>
-                                            </td>
-                                            <td class="text-black text-center">
+                                            </td>                                       
+                                            <td class="text-center text-white">
                                                 <div class="dialog-pro dialog">
                                                     <?php if ($value->status =='SELECT'){?>
                                                         <a href="{{ url('/picking/detail/' . $value->id . '') }}"
-                                                        class="btn btn-success btn-sm">PICKING</a>
-
-                                                        {{-- <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#compareModal"><i class="notika-icon notika-edit mb-3"></i>PICKING</i>		
-                                                        </button> --}}
+                                                        class="btn btn-primary btn-sm">PICKING</a>
                                                     <?php }?>
                                                 </div>
                                                 <br>
                                             </td>
+                                           
+                                            <td class="text-black text-center ">
+                                                {{ $value->part_number }} </td>
+                                            <td class="text-black text-center">
+                                                    {{ $value->rog_number }} </td>
+                                            <td class="text-black text-center">
+                                                {{ $value->qty_request }} </td>
+                                                <td class="text-black text-center">
+                                                    <?php if ($value->status == 'SELECT') {
+                                                        
+                                                        echo '<span class= "badge text-bg-warning badge-font-size:20px;">BEFORE PICKING</span>';
+                                                    } ?>
+                                                    <?php if ($value->status == 'PICKING') {
+                                                        echo '<span class= "badge text-bg-primary">SUCCESS</span>';
+                                                    } ?>
+                                                    <?php if ($value->status == 'SORTING') {
+                                                        echo '<span class= "badge text-bg-primary">SUCCESS</span>';
+                                                    } ?>
+                                                </td>     
                                         </tr>
                                     @endforeach
                                 </tbody>

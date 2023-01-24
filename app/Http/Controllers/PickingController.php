@@ -37,7 +37,7 @@ class PickingController extends Controller
  
     public function storeData(Request $request){
     
-        $update_status      = "PICKING";
+        $update_status      = "SORTING";
         $raw_nik          = $request->picking_by;
         $nik              =  substr($raw_nik, 2,5); 
         $labelQty         = $request->scan_label;
@@ -85,9 +85,7 @@ class PickingController extends Controller
             "status" => $resultPicking,   
         ];
 
-      
-            return [
-               
+            return [        
                 "param" => $param,       
                 ];
     }         
