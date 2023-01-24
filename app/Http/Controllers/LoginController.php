@@ -4,31 +4,48 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\User;
 
 class LoginController extends Controller
 {
+   
+//     public function __construct()
+//    {
+//         $this->middleware('auth');
+//    }
    public function index(){
-    return view('login.index', [
-        "title"=>'Login',
-        "active"=>'login'
-    ]);
-   } //
+    // return Auth::user();
+
+    if(Auth::user()){
+        return redirect('/register_part');// intented untuk direct url agar melewati middleware
+        return "sudah login";
+    }
+    // return "belum login";
+    else{
+        
+        return view('login.index', [
+            "title"=>'Login',
+            "active"=>'login'
+        ]);
+    }
+
+   } 
 
 
    public function authenticate(Request $request){
 
-    $credentials= $request->validate([
-        'email'=>'required|email:dns',
-        'password'=>'required'
-    ]);
+        $credentials= $request->validate([
+            'email'=>'required|email:dns',
+            'password'=>'required'
+        ]);
 
 
-   if(Auth::attempt($credentials)){
-    $request->session()->regenerate();
-    return redirect()->intended('/dashboard');// intented untuk direct url agar melewati middleware
-    }
+        if(Auth::attempt($credentials, true)){
+            $request->session()->regenerate();
+            return redirect('/register_part');// intented untuk direct url agar melewati middleware
+        }
 
-    return back()->with('loginError', 'Login Failed!'); 
+        return back()->with('loginError', 'Login Failed!'); 
     }
 
     public function logout(Request $request){

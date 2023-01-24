@@ -1,9 +1,11 @@
-@extends('layouts.main')
+@extends('layouts.loginMain')
 
 <style>
   body {
-    background-image: url(http://127.0.0.1:8000/css/post2.jpg);
-    border-radius: 50px;
+    background-image: url(http://136.198.117.7/mcsp/public/css/post2.jpg);
+    border-radius: 100%;
+    background-image:cover;
+    object-position: center;
 }
   </style>
 
@@ -19,7 +21,7 @@
    @endif
 
    @if(session()->has('loginError'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="alert alert-danger alert-dismi ssible fade show" role="alert">
       {{session('loginError')}}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
    </div>
@@ -28,7 +30,7 @@
 
     <main class="form-signin">
       <h1 style="color:aliceblue" class="h3 mb-3 font-weight-normal text-center">Login Form</h1>
-    <form action="/login" method="post">
+    <form action="{{url('/login')}}" method="post">
       @csrf
         <div class="form-floating">
         <input type="email"  name="email"class="form-control @error('email')is-invalid @enderror" placeholder="Email" width="40% mb-lg-5" autofocus required>
@@ -50,7 +52,7 @@
           Login
         </button>
      <form>
-      <small style="color:aliceblue" class="d-block text-center mt-4">Not registered? <a href="/register">Register Now!</a></small>
+      <small style="color:aliceblue" class="d-block text-center mt-4">Not registered? <a href="{{url('/register')}}">Register Now!</a></small>
      </main>
   </div>
 </div>
