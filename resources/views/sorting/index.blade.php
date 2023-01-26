@@ -44,7 +44,7 @@
 														<?php if ($value->status == 'SORTING') {
 															echo '<tr style="background-color: rgb(144, 144, 144);">';
 														} else {
-															echo '<tr style="background-color:#69dec1;">';
+															echo '<tr style="background-color:#82d489;">';
 																
 														}?>       
 														<td class="text-black text-center">{{ ++$i }}</td>

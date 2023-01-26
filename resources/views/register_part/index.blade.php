@@ -94,12 +94,7 @@
 								<tbody>									
 									@foreach($data as $key => $value)
 									<tr>
-										<?php if ($value->status == 'DONE') {
-												echo '<tr style="background-color:#18ca24;">';
-										} else {
-											echo '<tr style="background-color:white">';
-												// echo '<tr style="background-color:#00c292;">';
-										}?>    
+										 
 									
 										<td class="text-center">{{ ++$i }}</td>
 										<td class="text-center">{{$value->rog_number}} </td>
@@ -119,19 +114,16 @@
 										<td class="text-center">{{$value->register_at}} </td>
 										<td class="text-center">{{$value->register_by}} </td>
 										<td class="row">
+											
 										<div class="btn-group">
-
-											{{-- <a class="btn btn-outline-warning btn-sm mb-3 margin-right:20px" data-bs-toggle="modal" data-bs-target="#updateModal_{{$value->id}}">UPDATE</i>		
-											</a> --}}
-
-										
-											<a class="btn btn-outline-warning btn-sm mb-3 margin-right:20px  " href="{{url('register_part/' .$value->id. '/edit')}}"><i class="notika-icon notika-edit"></i>UPDATE</a>																	
-											<form action="{{url('/register_part/'.$value->id)}}" method="POST" onsubmit="return confirm('Delete Part Data?')">
+											
+											<a class="btn btn-warning btn-sm mb-3 margin-right:20px  " href="{{url('register_part/' .$value->id. '/edit')}}"><i class="notika-icon notika-edit"></i>UPDATE</a>																	
+											{{-- <form action="{{url('/register_part/'.$value->id)}}" method="POST" onsubmit="return confirm('Delete Part Data?')">
 												@method('delete')
 												@csrf							
 												<input type="hidden" name="s_method" value="DELETE">
 												<button type="submit" class="btn btn-outline-danger btn-sm" ><i class="bi bi-x-circle-fill"></i>DELETE</button> 
-											</form>	
+											</form>	 --}}
 
 											<div class="modal fade" id="updateModal_{{$value->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog modal-lg">
@@ -210,16 +202,16 @@
 																		</div>								
 																	</div>
 																</div>
-													</div>
+															</div>
 														</form>
 													</div>
-												</div>
+													</div>
 												  </div>
 												</div>
-											</div>
-										
-										 </div>
-										<br>				 
+											</div>'
+									
+										<br>
+												 
 										</td> 
 										<td class="text-center">
 											<?php
@@ -228,7 +220,7 @@
 												echo '<a  data-bs-toggle="modal" data-bs-target="#modal_confirm" id="confirm_part"
 													data-confirm_id ="' . $value->id . '"
 													data-confirm_status ="' . $value->status . '"													   
-													class = "btn btn-outline-success btn-sm"><i class="bi bi-check-lg fs-5"></i> CONFIRM
+													class = "btn btn-outline-success btn-sm"><i class="bi bi-check-sm"></i> CONFIRM
 												</a>';			
 											}																	
 											?>
@@ -441,10 +433,6 @@
 	  </div>
 	</div>
 </div>
-
-
-
-
 
   @endsection
   

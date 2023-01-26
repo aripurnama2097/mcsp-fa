@@ -207,9 +207,16 @@
                     var qty_request  = $('#qty_request').val();
                     var id           = $('#part_picking_id').val();
 
-                  
 
-                    if(scan_label.localeCompare(part_number)>= 0){
+                    
+
+                    part_number = part_number.replace("+","#");
+                    scan_label = scan_label.replace("+","#");
+
+                    if(scan_label.search(part_number)>= 0){
+                        
+                        part_number = part_number.replace("#","+");
+                        scan_label = scan_label.replace("#","+");
                       $.ajax({
                         type    :"POST",
                         dataType:"json",
@@ -221,6 +228,8 @@
                             var source = document.getElementById('audioSource');
                             var audio = new Audio("{{asset('')}}storage/sound/OK.mp3");
                             document.getElementById("result_OK").innerHTML = "OKE";
+                            document.getElementById("result_OK").style.display = "block";
+                             document.getElementById("result_NG").style.display = "none";
                             audio.load()
                             audio.play();
 
@@ -256,6 +265,8 @@
                             var source = document.getElementById('audioSource');
                             var audio = new Audio("{{asset('')}}storage/sound/WRONG.mp3");
                             document.getElementById("result_NG").innerHTML = "NG";
+                            document.getElementById("result_NG").style.display = "block";
+                            document.getElementById("result_OK").style.display = "none";
                             audio.load()
                             audio.play();
                         }

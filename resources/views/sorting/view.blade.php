@@ -34,8 +34,8 @@
                                     <input type="hidden" name="part_sorting_id" value="{{$value->id}}"  id="part_sorting_id"  disabled>
                                    
                                     <input class="form-control form-control-lg mb-3 text-center border border-secondary" type="text" name="sorting_by" value="" id="sorting_by" maxlength="8" placeholder="SCAN NIK HERE" >                                
-                                    <input class="form-control form-control-lg mb-4  text-center border border-secondary" type="text" name="label_original"  value="" id="label_original" placeholder="SCAN LABEL PART HERE" disabled> 
-                                    <input class="form-control form-control-lg mb-4  text-center border border-secondary" type="number" name="qty_split"  value="{{$value->qty_request}}" id="qty_split" placeholder="QTY" disabled>      
+                                    <input class="form-control form-control-lg mb-4  text-center border border-secondary" type="text" name="label_original"  value="{{$value->scan_label}}" id="label_original" placeholder="SCAN LABEL PART HERE" disabled> 
+                                    <input class="form-control form-control-lg mb-4  text-center border border-secondary" type="number" name="qty_split"  value="{{$value->qty_request}}" id="qty_split" placeholder="QTY" disabled readonly>      
                                     {{-- onkeypress="getqty(event)"                                                                                          --}}
                                     <div class="d-flex justify-content-center">
                                         <a type="submit" onclick="splitLabel()" class="btn btn-success rounded btn-sm text-center">SPLIT LABEL</a>
@@ -112,8 +112,13 @@ function splitLabel(){
     var qty_split           = $('#qty_split').val();
     var id                  = $('#part_sorting_id').val();
     
-    
+    part_number = part_number.replace("+","#");
+    label_original = label_original.replace("+","#");
+
     if(label_original.search(part_number)>= 0){
+
+        part_number = part_number.replace("#","+");
+        label_original = label_original.replace("#","+");
         $.ajax({
         type    :"POST",
         dataType:"json",
@@ -128,6 +133,9 @@ function splitLabel(){
             var source  = document.getElementById('audioSource');
             var audio   = new Audio("{{asset('')}}storage/sound/OK.mp3");
             document.getElementById("result_OK").innerHTML = "OKE";
+            document.getElementById("result_OK").style.display = "block";
+            document.getElementById("result_NG").style.display = "none";
+                            audio.load()
            
             audio.load();
             audio.play();
@@ -186,6 +194,8 @@ function splitLabel(){
                 var source = document.getElementById('audioSource');
                 var audio = new Audio("{{asset('')}}storage/sound/WRONG.mp3");
                 document.getElementById("result_NG").innerHTML = "NG";
+                document.getElementById("result_NG").style.display = "block";
+                document.getElementById("result_OK").style.display = "none";
                 audio.load()
                 audio.play();                         
             }                      
@@ -194,7 +204,8 @@ function splitLabel(){
 }
 
 function closeForm() {
-                document.getElementById("result_NG").style.display = "none";             
+                 document.getElementById("result_NG").style.display = "none";
+                document.getElementById("result_OK").style.display = "none";            
                 $('#label_original').val('');
              
                 $('#label_original').focus();

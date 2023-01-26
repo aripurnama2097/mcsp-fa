@@ -45,7 +45,7 @@
                                             <?php if ($value->status == 'SELECT') {
                                                 echo '<tr style="background-color: rgb(144, 144, 144);">';
                                             } else {
-                                                echo '<tr style="background-color:#69dec1;">';
+                                                echo '<tr style="background-color:#7be37b;">';
                                                     // echo '<tr style="background-color:#00c292;">';
                                             }?>       
                                             <td class="text-black text-center">{{ ++$i }}

@@ -2,10 +2,11 @@
 
 <style>
   body {
-    background-image: url(http://136.198.117.7/mcsp/public/css/post2.jpg);
+     background-image: url(http://136.198.117.7/mcsp/public/css/8.jpg);
     border-radius: 100%;
     background-image:cover;
-    object-position: center;
+    -o-background-size: cover;
+    background-size: cover;
 }
   </style>
 
@@ -48,12 +49,18 @@
         </div> 
 
         <br>
-        <button type="submit" class="w-100 btn-lg  btn-primary">
+        <button type="submit" class="w-100 btn btn-lg  btn-primary">
           Login
         </button>
-     <form>
+      </form>
       <small style="color:aliceblue" class="d-block text-center mt-4">Not registered? <a href="{{url('/register')}}">Register Now!</a></small>
-     </main>
+       <br>
+       {{-- <div class="d-flex justify-content-center">
+        <a class="text-center" href="{{url('/login/reset_password')}}">Reset Password!</a>
+      </div> --}}
+     
+      </small>
+    </main>
   </div>
 </div>
 
