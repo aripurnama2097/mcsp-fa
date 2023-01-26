@@ -8,7 +8,7 @@ use App\Models\RegisterPart;
 use App\Models\MasterPart;
 use App\Http\Requests\RegisterPartRequest;
 use App\Models\Compare;
-
+use Illuminate\Support\Facades\DB;
 
 class RegisterPartController extends Controller
 {
@@ -26,7 +26,8 @@ class RegisterPartController extends Controller
     //    $data_part = MasterPart::distinct('partnumber')
     //    ->whereRaw('year(input_date) > 2020')
     //    ->pluck('partnumber');
-       
+    $data_part= DB::connection("sqlsrv2")->table('stdPack')->distinct('partnumber')
+    ->whereRaw('year(input_date) > 2020')->pluck('partnumber');
        
        $keyword= $request->keyword;
         $data2 = Compare::orderBy('id','desc')->get();
@@ -42,7 +43,7 @@ class RegisterPartController extends Controller
                 // $data->orderBy('id','asc')->get();
         // $data2= $data->orderBy('id', 'asc')->get();
         return view ('register_part.index',compact(
-            'data','data2'))->with('i', (request()->input('page', 1) -1) * $pagination);
+            'data','data2','data_part'))->with('i', (request()->input('page', 1) -1) * $pagination);
 
     }
         
@@ -56,11 +57,15 @@ class RegisterPartController extends Controller
      */
     public function create()
     {
-       $model = new RegisterPart;
-       $data_part = MasterPart::distinct('PART_NO')->pluck('PART_NO');
-       $data_part = MasterPart::distinct('partnumber')
-       ->whereRaw('year(input_date) > 2020')
-       ->pluck('partnumber');
+    //    $model = new RegisterPart;
+    //    $data_part = MasterPart::distinct('PART_NO')->pluck('PART_NO');
+    //    $data_part = MasterPart::distinct('partnumber')
+    //    ->whereRaw('year(input_date) > 2020')
+    //    ->pluck('partnumber');
+       $data_part= DB::connection("sqlsrv2")->table('stdPack')->distinct('partnumber')
+        ->whereRaw('year(input_date) > 2020')->pluck('partnumber');
+
+
     //    return $data_part;
     //    $part=[$data_part['PART_NO']];
         // return $data_part;        
@@ -98,7 +103,7 @@ class RegisterPartController extends Controller
         
         $model->rog_number = $request->rog_number;
         $model->part_number = $request->part_number;
-        $model->qty_request = $request->qty_request;
+        $model->confirm_by = $request->qty_request;
         $model->register_by = $request->register_by;
         $model->save();
         
@@ -177,6 +182,7 @@ class RegisterPartController extends Controller
             $model = RegisterPart::find($request->id);
 
             $model->status = 'DONE';
+            $model->confirm_by = $request->confirm_by;
             $model->save();
 
             // RegisterPart::where("status",$request->status)
@@ -184,10 +190,10 @@ class RegisterPartController extends Controller
             // ->update(["status","DONE"]);
             
           
-        return redirect('/register_part')->with('success', 'Success! Confirm Part');
+        return redirect('/register_part')->with('success', 'CONFIRM PART SUCCESS!');
         
          
-        }     
+    }     
         
         
     // public function picking(){

@@ -20,6 +20,8 @@ use App\Http\Controllers\SortingController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RegisterPartController;
 use App\Http\Controllers\DashboardHelpController;
+use App\Http\Controllers\ResetPasswordController;
+
 
 
 
@@ -57,6 +59,7 @@ Route::get('/home', function() {
 Route::get('/login',[LoginController::class, 'index'])->name('login'); //->middleware('guest'); // penamaan route login
 Route::post('/login',[LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']); // method lgogout
+Route::get('/login/reset_password',[ResetPasswordController::class, 'index']);
 
 // Routing Register User
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
@@ -64,8 +67,8 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 
 // FORGOT PASSWORD
-Route::get('/forgot_password', [ForgotController::class, 'index'])->middleware('auth');
-Route::resource('/dashboard/help', DashboardHelpController::class)->middleware('auth');
+// Route::get('/forgot_password', [ForgotController::class, 'index'])->middleware('auth');
+// Route::resource('/dashboard/help', DashboardHelpController::class)->middleware('auth');
 
 
 
@@ -74,8 +77,7 @@ Route::resource('/dashboard/help', DashboardHelpController::class)->middleware('
 
 Route::get('/register_part', [RegisterPartController::class,'index'])->name('register.part')->middleware('auth');
 Route::resource('/register_part', RegisterPartController::class)->middleware('auth');
-
-// Route::post('/register_part/create/', [RegisterPartController::class,'create']);
+Route::post('/register_part/create/', [RegisterPartController::class,'create'])->middleware('auth');
 
 // CREATE REGISTER PART WITH MODEL
 Route::post('/register_part/createPart/', [RegisterPartController::class,'createPart'])->middleware('auth');
