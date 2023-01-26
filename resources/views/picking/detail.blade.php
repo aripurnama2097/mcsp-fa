@@ -7,7 +7,7 @@
             <div class="row">
                 <br>
                 <div class="col-md-12">
-                    <a href="{{url('./picking')}}" class="btn btn-warning bi bi-back mt-3"><i class="notika-icon notika-back"></i>Back</a>
+                    <a href="{{url('./picking')}}" class="btn btn-warning btn-sm"><i class="bi bi-box-arrow-left"></i> Back</a>
                 </div>
             </div>
             <br>
@@ -194,6 +194,7 @@
         }
     });
 
+                 
     // START COMPARE PART
     $('#scan_label').on('keypress', function(e){
 			if(e.which == 13) {
@@ -206,7 +207,9 @@
                     var qty_request  = $('#qty_request').val();
                     var id           = $('#part_picking_id').val();
 
-                    if(scan_label.search(part_number)>= 0){
+                  
+
+                    if(scan_label.localeCompare(part_number)>= 0){
                       $.ajax({
                         type    :"POST",
                         dataType:"json",
@@ -265,6 +268,7 @@
 
              function closeForm() {
                 document.getElementById("result_NG").style.display = "none";
+                document.getElementById("result_OK").style.display = "none";
                
                 $('#scan_label').val('');
              
@@ -273,10 +277,6 @@
                
                 $('#scan_label').focus();
                 }
-                
-              
-              
-
 </script>
 
 @endsection
