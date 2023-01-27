@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Dashboard | MC Sorting Part</title>
+  <title>MCSP</title>
   <meta name="description" content="">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,16 +31,35 @@
               </div>
               <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                   <div class="header-top-menu">
+                    
                       <ul class="nav navbar-nav notika-top-nav">
-                          <li class="nav-item dropdown">
-                              {{-- <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-search"></i></span></a> --}}
-                              <div role="menu" class="dropdown-menu search-dd animated flipInX">
-                                  <div class="search-input">
-                                      <i class="notika-icon notika-left-arrow"></i>
-                                      <input type="text" />
-                                  </div>
-                              </div>
-                          </li>           
+                       
+                        {{-- @auth
+                        <li class="nav-item dropdown">
+                           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                             Welcome {{auth()->user()->name}}
+                           </a>
+                           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                         
+                             <li><hr class="dropdown-divider"></li>
+                             <li>
+                               <form action="{{url('/logout')}}" method="post">
+                                 @csrf
+                                 <button type="submit" class="dropdown-item"> <i class="bi bi-box-arrow-left">
+                                   </i>Logout</a></button>
+                               </form>
+                             </li>
+                           </ul>
+                         </li>
+                       @else    
+                     <li class="nav-item"> 
+                            <a href="{{url('/login')}}" class="nav-link "> 
+                                <i class="bi bi-arrow-left-square"></i>
+                                Back To Home
+                            </a>
+                        </li>
+                     
+                     @endauth      --}}
                       </ul>
                   </div>
               </div>
@@ -49,45 +68,48 @@
   </div>
     <!-- End Header Top Area -->
 
-    
-    <!-- Mobile Menu start -->
+
     <div class="mobile-menu-area">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="mobile-menu">
-                        <nav id="dropdown">
+                    <div class="mobile-menu mean-bar">
+                        <nav class="navbar navbar-dark bg-dark">
+                            {{-- <div class="container-fluid"> --}}
+                              <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                              </button>
+                            {{-- </div> --}}
+                          </nav>
+                        <div class="collapse" id="navbarNav">
+                            <div class="bg-dark p-4 text-white">
                             <ul class="mobile-menu-nav">
-                                <li><a data-toggle="collapse" data-target="{{url('layouts.main')}}" href="#">Home</a>
+                                <li><a class="nav-link"   class="text-white" href="{{url('/register_part')}}">HOME</a>
                                 </li>
-
-                                <li><a data-toggle="collapse" data-target="{{url('/register_part')}}" href="#">REGISTER PART</a>
+                                <br>
+                                <li><a  class="nav-link"  class="text-white" href="{{url('/register_part')}}">REGISTER PART</a>
                                 </li>
-
-                                <li><a  class="text-bold" href="{{url('./picking')}}">PICKING </a>
+                                <br>
+                                <li><a  class="nav-link"  href="{{url('./picking')}}" class="text-white" >PICKING </a>
                                 </li>
-                             
-                                <li><a data-target="#demolibra" href="{{url('./sorting')}}">Sorting Part</a>                                 
+                                <br>                          
+                                <li><a class="nav-link" href="{{url('./sorting')}}" class="text-white">SORTING</a>                                 
                                 </li>
-
-                                <li><a  data-target="#demodepart" href="{{url('./record')}}">Record Data</a>
+                                <br>
+                                <li><a   class="nav-link" href="{{url('./record')}}" class="text-white">RECORD DATA</a>
                                 </li>
-
-                                <li><a data-toggle="collapse" data-target="#demo" href="#">Manual Instruction</a>
-                                    <ul id="demo" class="collapse dropdown-header-top">
-
-                                    </ul>
+                                <br>
+                                <li><a   class="nav-link" src="{{asset('')}}storage/sound/OK.mp3"class="text-white">MANUAL INSTRUCTION</a>
                                 </li>
-                            
                             </ul>
-                        </nav>
+                            </div>
+                          </div>          
                     </div>
                 </div>
             </div>
+         
         </div>
-    </div>
-
-    
+    </div> 
     <!-- MOBILE MENU END -->
 
 
@@ -98,42 +120,29 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro ">
                       <li class="active bg-green">
-                        <a data-toggle="tab" href="#Home" style="font-weight:bold" > <i class="notika-icon notika-house background-color:white text-bold"></i> HOME</a>
+                        <a href="{{url('')}}" style="font-weight:bold" > <i class="bi bi-house"></i> HOME</a>
                       </li>        
                       <li>
-                        <a   href="{{url('/register_part')}}" style="font-weight:bold"><i class="notika-icon notika-edit"></i></i>REGISTER PART</a>
+                        <a   href="{{url('./login')}}" style="font-weight:bold"><i class="bi bi-pencil-square"></i>REGISTER PART</a>
                       </li>
                       <li>
-                        <a  href="{{url('./picking')}}" style="font-weight:bold"><i class="notika-icon notika-windows"></i>PICKING PART</a>
+                        <a  href="{{url('./picking')}}" style="font-weight:bold"><i class="bi bi-box2"></i>PICKING PART</a>
                       </li>
 
                       <li>
-                        <a href="{{url('./sorting')}}"style="font-weight:bold"><i class="notika-icon notika-app"></i>SORTING PART</a>
+                        <a href="{{url('./sorting')}}"style="font-weight:bold"><i class="bi bi-boxes"></i>SORTING PART</a>
                       </li>
-                      <li>
-                        <a  href="{{url('./balance')}}" style="font-weight:bold"><i class="notika-icon notika-windows"></i>BALANCE</a>
-                      </li>
+                     
                       <li>
                         <a  href="{{url('./record')}}" style="font-weight:bold"><i class="notika-icon notika-form"></i>RECORD DATA</a>
                       </li>       
+                      <li>
+                        <a href="{{asset('')}}storage/WI/WI_MCSP.pdf" style="font-weight:bold"><i class="bi bi-stickies-fill"></i>MANUAL INSTRUCTION</a>
+                      </li>  
+
                     </ul>
 
-                    {{-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <div class="container-fluid">
-                          <a class="navbar-brand" href="#">Navbar</a>
-                          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                          </button>
-                          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                            <div class="navbar-nav">
-                              <a class="nav-link active" aria-current="page" href="#">Home</a>
-                              <a class="nav-link" href="#">Features</a>
-                              <a class="nav-link" href="{{url('/register_part')}}">Pricing</a>
-                              <a class="nav-link disabled">Disabled</a>
-                            </div>
-                          </div>
-                        </div>
-                    </nav> --}}
+                 
                     <div class="tab-content custom-menu-content">
                         <div id="Home" class="tab-pane in active notika-tab-menu-bg animated flipInX">
                             <ul class="notika-main-menu-dropdown  ">                             
@@ -187,6 +196,8 @@
     </div>
     <!-- MAIN MENU AREA END-->
      
+
+
     @yield('section')
    
     <!-- Start Footer area-->
@@ -196,7 +207,16 @@
     
    
 
-    @include('layouts.footer')
+   
     @include('layouts.script')
+
+    <script>
+        $(document).ready(function(){
+          $('.nav-link').click(function(){
+            $('.collapse').collapse('hide');
+          });
+        });
+     </script>
 </body>
+@include('layouts.footer')
 </html>

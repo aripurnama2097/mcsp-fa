@@ -2,7 +2,7 @@
 		============================================ -->
         <!-- bootstrap JS
             ============================================ -->
-        {{-- <script src="{{asset ('') }}js/bootstrap.min.js"></script> --}}
+        <script src="{{asset ('') }}js/jquery.min.js"></script>
 
         <script src="{{asset ('') }}js/bootstrap.min_5.js"></script>
         {{-- <script src="{{asset ('') }}bootstrap-5/js/bootstrap.min.js"></script> --}}
@@ -82,6 +82,8 @@
         <script src="{{asset ('') }}js/dialog/dialog-active.js"></script> 
 
         <script src="{{asset ('') }}js/bootstrap.bundle.min.js"></script>
+
+         {{-- <script src="{{asset ('') }}js/bootstrap.bundle.min.js"></script> --}}
 
       
        

@@ -116,7 +116,7 @@
 										<td class="row">
 											
 										<div class="btn-group">
-											
+											@if($value->status=='SELECT')
 											<a class="btn btn-warning btn-sm mb-3 margin-right:20px  " href="{{url('register_part/' .$value->id. '/edit')}}"><i class="notika-icon notika-edit"></i>UPDATE</a>																	
 											{{-- <form action="{{url('/register_part/'.$value->id)}}" method="POST" onsubmit="return confirm('Delete Part Data?')">
 												@method('delete')
@@ -124,7 +124,7 @@
 												<input type="hidden" name="s_method" value="DELETE">
 												<button type="submit" class="btn btn-outline-danger btn-sm" ><i class="bi bi-x-circle-fill"></i>DELETE</button> 
 											</form>	 --}}
-
+											
 											<div class="modal fade" id="updateModal_{{$value->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog modal-lg">
 												  <div class="modal-content">
@@ -208,11 +208,13 @@
 													</div>
 												  </div>
 												</div>
-											</div>'
-									
+											</div>
+								
 										<br>
-												 
+											@endif 
 										</td> 
+
+
 										<td class="text-center">
 											<?php
 											if ($value->status== 'SORTING') {
