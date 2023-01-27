@@ -49,4 +49,8 @@
 ============================================ -->
 <link rel="stylesheet" href="{{asset ('') }}css/responsive.css">
 
+<link rel="stylesheet" href="{{ asset('assets/dist/css/bootstrap-icons.css') }}">
+
+{{-- <link rel="stylesheet" href="{{asset ('') }}css/bootstrap.min_2.css">  --}}
+
 {{-- <link rel="stylesheet" href="{{asset ('') }}css/bootstrap-select/bootstrap-select.css"> --}}

@@ -206,7 +206,8 @@ class SortingController extends Controller
     $partno = $param['part_number'];
         $get_type = DB::connection("sqlsrv5")
                 ->select("SELECT DISTINCT case imincl when '1' then 'DIRECT' else 'INSPECTION' end as sts_insp from sa96t where iprod = '". $partno ."'");
-        return $get_type[0]->sts_insp;
+        $get_type =  isset($get_type[0]->sts_insp) ? $get_type[0]->sts_insp : "No Type";
+        return $get_type;
         
     }
 
