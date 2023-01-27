@@ -9,7 +9,7 @@ class Compare extends Model
 {
     use HasFactory;
 
-    protected  $table ='picking';
+    protected  $table ='part_sorting';
     protected  $guarded  =['id'];
 
 

@@ -9,8 +9,9 @@ class MasterPart extends Model
 {
     use HasFactory;
 
-    protected $connection = 'sqlsvr2';
+    protected $connection = 'sqlsvr3';
     protected $table = 'StdPack';
+    
     protected $fillable = ['partnumber'];
     // protected $table = 'PartMs';
     // protected $fillable = ['PART_NO'];

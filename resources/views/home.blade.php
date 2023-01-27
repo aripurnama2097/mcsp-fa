@@ -1,6 +1,6 @@
-  
-  @extends('layouts.main') 
-  @extends('layouts.mobile') 
+
+  @extends('layouts.main')
+  {{-- @extends('layouts.mobile')  --}}
 @section('container')
 {{-- <h1>Page Home </h1> --}}
 
