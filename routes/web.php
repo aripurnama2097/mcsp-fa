@@ -61,6 +61,8 @@ Route::post('/login',[LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']); // method lgogout
 Route::get('/login/reset_password',[ResetPasswordController::class, 'index']);
 
+Route::post('/login/reset_password',[ResetPasswordController::class, 'resetPassword']);
+
 // Routing Register User
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);

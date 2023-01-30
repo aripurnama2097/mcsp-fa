@@ -16,8 +16,8 @@ class RecordController extends Controller
     public function index()
     {      
 
-        $pagination =5; 
-        $data = RecordSorting::latest()->paginate(5);
+        $pagination =10; 
+        $data = RecordSorting::latest()->paginate(10);
         return view ('record.index',compact('data'))->with('i', (request()->input('page', 1) -1) * $pagination);   
     }
 

@@ -41,7 +41,11 @@
                                     <label class="text-center font-weight-bold text-success" id="result_OK"  style="font-size:50px;">
                                     </label>
                                     <div class="d-flex justify-content-center">
+                                        <label class="text-center font-weight-bold text-success" id="result_OK"  style="font-size:50px;">
+                                        </label>
                                         <label class="text-center font-weight-bold text-danger" id="result_NG" style="font-size:50px;">
+                                        </label>
+                                        <label class="text-center font-weight-bold text-danger" id="part-scan"  style="font-size:50px;">
                                         </label>
                                     </div>
                                    
@@ -229,9 +233,11 @@
                             var audio = new Audio("{{asset('')}}storage/sound/OK.mp3");
                             document.getElementById("result_OK").innerHTML = "OKE";
                             document.getElementById("result_OK").style.display = "block";
-                             document.getElementById("result_NG").style.display = "none";
+                            document.getElementById("result_NG").style.display = "none";
                             audio.load()
                             audio.play();
+
+                            // if(success {})
 
                             console.log(data);
                          
@@ -257,6 +263,8 @@
                                 $('.merah').css('color','red');
                         }              
                       })
+
+                      $('#scan_label').attr('disabled', true);
                     }
                     else {
                         $.ajax({
