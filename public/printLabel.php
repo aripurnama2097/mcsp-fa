@@ -2,7 +2,9 @@
 include('./phpqrcode/qrlib.php');
 // include('./assets/phpqrcode/qrlib.php');
 
-      
+    // print_r ($_GET);
+    // die();
+
         $PARTNO      = $_GET['part_number'];
         $LOCATION    = $_GET['lokasi'];
         $PO          = $_GET['po'];
@@ -12,16 +14,20 @@ include('./phpqrcode/qrlib.php');
 
         $newlabel1 = $_GET['label_sorting'];
         $newlabel2 = $_GET['label_balance'];
+        
 
         $newlabel1_name = str_replace($newlabel1, '/','_');
         $newlabel2_name = str_replace($newlabel2, '/','_');
 
        
         $qty1 = substr($newlabel1,24,5);
-        $qty2 = substr($newlabel2,24,5);
+        $qty2 = substr($newlabel2,24,5); //balance
 
+        
+        $PARTNO  = str_replace("__","+",  $PARTNO );
+        $newlabel1 = str_replace("__","+",$newlabel1);
+        $newlabel2 = str_replace("__","+",$newlabel2);
         // echo $newlabel1;
-      
         //createQRCodeImages
         $tempDir = './img_qrcode/';
         $qrname1 = substr($newlabel1_name, 30).'.png';

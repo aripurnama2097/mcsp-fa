@@ -103,8 +103,10 @@ Route::get('/picking/detail/{id}/result/', [PickingController::class,'resultComp
 
 // -------ROUTE SORTING--------------------------------------------------------------
 Route::get('/sorting', [SortingController::class,'index']);
+Route::post('/sorting/filter', [RecordController::class,'filter']);
 // INPUTAN SPLIT LABEL AND INSERT TO TABLE SPLIT_LABEL
 Route::get('/sorting/view/{id}', [SortingController::class,'view']);
+Route::get('/sorting/view_test/{id}', [SortingController::class,'view_test']);
 // ROUTE UNTUK SPLIT LABEL
 // Route::post('/sorting/view/{id}',    [SortingController::class,'splitLabel']);
 Route::post('/sorting/view/split',    [SortingController::class,'splitLabelnew']);

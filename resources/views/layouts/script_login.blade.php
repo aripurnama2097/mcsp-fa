@@ -1,0 +1,1 @@
+    <script src="{{asset ('') }}js/bootstrap.bundle.min_2.js"></script>

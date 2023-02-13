@@ -21,15 +21,38 @@ class SortingController extends Controller
     public function index()
     {      
         // $data2 = RegisterPart::where('id')->get();  
-        $pagination =5; 
-        $data = PartSorting::latest()->paginate(5);
+        $pagination =8; 
+        $data = PartSorting::latest()->paginate(8);
         return view ('sorting.index',compact('data'))->with('i', (request()->input('page', 1) -1) * $pagination);   
     }
 
+
+    public function filter(Request $request)
+    {
+        // $pagination =8; 
+        $date = $request->input('start_date');
+        $date2 = $request->input('end_date');
+
+        $data = DB::table('part_sorting')
+        ->whereDate('picking_at','>=', $date)
+        ->whereDate ('picking_at','<=', $date2)
+        ->get();
+      
+        return response()->json($data);
+        // ->with('i', (request()->input('page', 1) -1) * $pagination);
+
+    }
     public function view($id){
         $data = PartSorting::where('id', $id)->get();
 
         return view ('sorting.view',
+        compact('data'));
+    }
+
+    public function view_test($id){
+        $data = PartSorting::where('id', $id)->get();
+
+        return view ('sorting.view_test',
         compact('data'));
     }
 
@@ -118,10 +141,13 @@ class SortingController extends Controller
         $status = $request->status;
         $po = isset($label_original) ? substr($label_original,16,7) : 0;
         $update_status ='DONE';
+        $remark = $request->remark;
 
-
+        
+        
         $maxqty         = substr($label_original, 24,5); //QTY DI LABEL ORIGINAL
-        $splitqty2      = intval($maxqty) - intval( $qty_split); //LABEL BALANCE = (ORIGINAL - QTY SPLIT)
+        $qty_actual     = is_null($request->qty_actual) ? $maxqty : $request->qty_actual;
+        $splitqty2      = intval($qty_actual) - intval( $qty_split); //LABEL BALANCE = (ORIGINAL - QTY SPLIT)
         $startlabel     = substr($label_original, 0,24);//A2B-0002-00 1234567
         $middlelabel    = substr($label_original, 30,22);// I10827 A2B-0002-00
         $date_temp1     = date("YmdHis");
@@ -138,13 +164,11 @@ class SortingController extends Controller
            
         $label_sorting = $newlabel1;
         $label_balance = $newlabel2;
-
-      
-        
+       
         PartSorting::where("status",$status)
         ->where("part_number",$part_number)
         ->where("rog_number",$rog_number)
-        ->update(["status" => $update_status]);
+        ->update(["status" => $update_status],["picking_by" => $raw_nik]);
         
         // INSERT INTO splitlabel
         DB::table('split_Label')->insert([        
@@ -156,9 +180,13 @@ class SortingController extends Controller
             'status'        => $update_status,
             'qty_split'     => $qty_split,
             'label_sorting' => $label_sorting,
-            'label_balance' => $label_balance
-                    
+            'label_balance' => $label_balance,
+            'edit_qty_actual'=>intval($qty_actual),
+            'edit_remark'    =>$remark
         ]);   
+
+
+        // return DB::table("split_Label")->where("part_number",$part_number)->get();
 
         $param = [
             "raw_nik" => $raw_nik,
@@ -170,9 +198,11 @@ class SortingController extends Controller
             "po" => $po,
             "part_sorting_id" => $request->id,
             "label_sorting" => $label_sorting,
-            "label_balance" => $label_balance
+            "label_balance" => $label_balance,
+            "qty_actual"    => $qty_actual,
+            "remark"        => $remark
         ];
-
+        // return $param;
         $get_location = $this->get_location_part($param);
         $get_type = $this->get_type($param);
         $get_suppliername = $this->get_supplierName($param);
@@ -197,8 +227,8 @@ class SortingController extends Controller
         // $get_location = MasterPart::select("lokasi")->where('suppcode',$supplier)->where('partnumber',$partno);
 
         // $get_location = DB::table('stdpack')->select('lokasi')->where('suppcode', $supplier)->where('part_number', $partno);
-        
-        return $get_location[0]->lokasi;   
+        $get_location =  isset($get_location[0]->lokasi) ? $get_location[0]->lokasi : "-";
+        return $get_location;   
      
     }
 
@@ -221,8 +251,7 @@ class SortingController extends Controller
         // $supplierName=SupplierMaster::select("SuppName")->where('SuppCode', $supplier);
         // $supplierName = DB::table('Supplier')->select('SuppName')->where('Suppcode', $supplier);
 
-
-        $supplierName =  $supplierName[0]->SuppName;
+        $supplierName =  isset($supplierName[0]->SuppName) ? $supplierName[0]->SuppName : "-";
         $supplierName = substr($supplierName,0,9);
 
         return $supplierName;

@@ -7,20 +7,38 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					{{-- <div class="breadcomb-list bg-light shadow-lg rounded-3">
-						<div class="row justify-content-center">					
-							<div class="breadcomb-wp mb-lg-3">
-								<div class="breadcomb-icon">
-										<i class="notika-icon notika-form"></i>
+					<div class="col-lg-12 shadow-sm rounded ">
+						<div class="breadcomb-list rounded-3 border-success">
+							<div class="row border-success">
+								<div class="col-lg-6 border-success">
+									<div class="breadcomb-wp border-success ">
+										<div class="breadcomb-icon">
+											<i class="bi bi-funnel"></i>
+										</div>
+										<div class="breadcomb-ctn ">
+											<h2>FILTER</h2>
+											<form id="date-form">
+												<div class="input-group mb-3 rounded-1">
+												<label for="date"></label>
+												<input type="date" class="form-control rounded-3 form-control-sm" name="start_date" id="start-date" value="{{date('Y-m-d')}}">
+												<input type="date" class="form-control rounded-3 form-control-sm" name="end_date" id="end-date" value="{{date('Y-m-d')}}">	
+																				
+												<button type="submit" data-toggle="tooltip" data-placement="left" title="" class="btn btn-primary btn-sm rounded">Search</buton>
+												
+												</div>
+												
+											</form>
+										</div>
 									</div>
+									
 								</div>
-
-								<div class="col-12 mb-5">
-						
-						   </div>
+								<br>
+								<br>
+								
+							</div>
 						</div>
-					</div> --}}
-
+					</div>
+					<br>
 						<div class="breadcomb-list shadow rounded-3">
 							{{-- <div class="card card-success"> --}}
 								<div class="col">
@@ -36,6 +54,7 @@
 														<th class="text-center text-white">QTY REQUEST</th>
 														<th class="text-center text-white">STATUS</th>
 														<th class="text-center text-white">ACTION </th>
+														<th class="text-center text-white">DATE </th>
 													</tr>
 												</thead>
 												<tbody>									
@@ -46,7 +65,7 @@
 														} else {
 															echo '<tr style="background-color:#82d489;">';
 																
-														}?>       
+													}?>       
 														<td class="text-black text-center">{{ ++$i }}</td>
 														<td class="text-black text-center">{{$value->rog_number}} </td>
 														<td class="text-black text-center">{{$value->part_number}} </td>
@@ -73,6 +92,7 @@
 															<?php }?>
 														</div>
 														</td>
+														<td class="text-black text-center">{{$value->picking_at}} </td>
 													</tr>
 	
 													@endforeach  
@@ -92,6 +112,66 @@
 	</div>    
 </div> 
 </body>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+
+		$('#date-form').submit(function(event) {
+			event.preventDefault();
+
+			var startDate = $('#start-date').val();
+			var endDate = $('#end-date').val();
+
+			// send the AJAX request to the route
+			$.ajax({
+				url: "{{url('sorting/filter/')}}",
+				method: 'POST',
+				data: {
+					start_date: startDate,
+					end_date: endDate,
+					_token: '{{ csrf_token() }}'
+				},
+				success: function(response) {
+				var data=""
+					console.log(data);
+					// if (data !== null && typeof data !== "undefined") {
+					// // do something with data.id
+					// }
+					// else {
+					// console.log("data is null or undefined");
+					// }
+					
+					$.each(response,function(key, value){
+
+					data = data + "<tr>"
+					
+					data = data + "<td>"+value.id+"</td>"				
+					data = data + "<td>"+value.rog_number+"</td>"
+					data = data + "<td>"+value.part_number+"</td>"
+					data = data + "<td>"+value.qty_request+"</td>"
+					data = data + "<td>"+value.status+"</td>"
+					data = data + "<td>"+value.picking_at+"</td>"
+				
+					data = data + "</tr>"
+					})
+					$('tbody').html(data);
+				}
+			});
+		});
+
+
+
+		$("#export-csv").on("click",function(){
+			let start_date = $('#start-date').val();
+			let end_date = $('#end-date').val();
+
+			window.open("{{url('/record/download')}}"+"?start_date="+start_date+"&end_date="+end_date);	
+
+		});
+	});
+
+</script>
 
 @endsection
 
