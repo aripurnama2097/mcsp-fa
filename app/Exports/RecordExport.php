@@ -29,7 +29,7 @@ class RecordExport implements  WithHeadings, FromCollection
 
     public function headings(): array
     {
-        return ["NO","NIK","ROG NUMBER","PART NUMBER","PO", "LABEL ORIGINAL","STATUS","DATE","LABEL SORTING","LABEL BALANCE","QTY"];
+        return ["NO","NIK","ROG NUMBER","PART NUMBER","PO", "LABEL ORIGINAL","STATUS","DATE","LABEL SORTING","LABEL BALANCE","QTY REQUEST","BALANCE DATE","SORTING DATE","QTY ACTUAL PART","REMARK CHANGE QTY"];
     }
 
     /**

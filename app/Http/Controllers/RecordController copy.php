@@ -13,34 +13,31 @@ use App\Exports\RecordExport;
 
 class RecordController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {      
 
-        $pagination =10; 
-        $data = RecordSorting::latest()->paginate(10);
+        // $date = $request->input('start_date');
+        // $date2 = $request->input('end_date');
+
+        $pagination =5; 
+        $data = RecordSorting::latest()->paginate(5);
         return view ('record.index',compact('data'))->with('i', (request()->input('page', 1) -1) * $pagination);   
     }
 
 
-    public function filter(Request $request)
-    {
+    public function filter(Request $request){
 
-        // $pagination =10; 
         $date = $request->input('start_date');
         $date2 = $request->input('end_date');
+
+
+        // $data = RecordSorting::whereBetween('shorting_date', [$date,$date2])->get();
 
         $data = DB::table('split_Label')
         ->whereDate('shorting_date','>=', $date)
         ->whereDate ('shorting_date','<=', $date2)
-
         ->get();
          return response()->json($data);
-        //  ->with('i', (request()->input('page', 1) -1) * $pagination);   
-
-
-        //  $filter_date = $request->input('filter_date');
-        //  $items = Item::whereDate('created_at', $filter_date)->paginate(10);
-        //  return view('items.index', compact('items'));
     }
 
     public function exportCSV(Request $request) 
@@ -54,8 +51,13 @@ class RecordController extends Controller
         ->whereDate ('shorting_date','<=',   $end_date)
         ->get();
         
-        return Excel::download(new RecordExport($data), 'SortingRecord.csv');
+        return Excel::download(new RecordExport($data), 'filtered_data.csv');
     }
 
+    // public function show($id)
+    // {
+    //     $record = RecordSorting::find($id);
+    //     return view('record.show', ['record' => $record]);
+    // }
    
 }

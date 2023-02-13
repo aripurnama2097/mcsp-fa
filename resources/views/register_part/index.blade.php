@@ -83,7 +83,7 @@
 										<th class="text-center text-white">PART NUMBER</th>
 										<th class="text-center text-white">QTY REQUEST</th>
 										<th class="text-center text-white">STATUS</th>
-										<th class="text-center text-white">REGISTER AT</th>
+										<th class="text-center text-white">REGISTER DATE</th>
 										<th class="text-center text-white">REGISTER BY</th>
 										<th class="text-center text-white">ACTION </th>
 										<th class="text-center text-white">CONFIRM</th>
@@ -93,8 +93,16 @@
 								</thead>
 								<tbody>									
 									@foreach($data as $key => $value)
-									<tr>
-										 
+									<tr >
+										<?php if ($value->status == 'SELECT') {
+											echo '<tr style="background-color: WHITE">';
+										}
+										?>
+
+										<?php if ($value->status == 'SORTING') {
+											echo '<tr style="background-color: rgb(214, 209, 209);">';
+										}
+										?>
 									
 										<td class="text-center">{{ ++$i }}</td>
 										<td class="text-center">{{$value->rog_number}} </td>
@@ -118,12 +126,12 @@
 										<div class="btn-group">
 											@if($value->status=='SELECT')
 											<a class="btn btn-warning btn-sm mb-3 margin-right:20px  " href="{{url('register_part/' .$value->id. '/edit')}}"><i class="notika-icon notika-edit"></i>UPDATE</a>																	
-											{{-- <form action="{{url('/register_part/'.$value->id)}}" method="POST" onsubmit="return confirm('Delete Part Data?')">
+											<form action="{{url('/register_part/'.$value->id)}}" method="POST" onsubmit="return confirm('Delete Part Data?')">
 												@method('delete')
 												@csrf							
 												<input type="hidden" name="s_method" value="DELETE">
 												<button type="submit" class="btn btn-outline-danger btn-sm" ><i class="bi bi-x-circle-fill"></i>DELETE</button> 
-											</form>	 --}}
+											</form>	
 											
 											<div class="modal fade" id="updateModal_{{$value->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog modal-lg">

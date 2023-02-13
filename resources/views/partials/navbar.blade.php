@@ -7,21 +7,20 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        
-      
+
+
       </ul>
       <form class="d-flex">
         <ion-icon name="log-out-outline"></ion-icon>
       </form>
 
-      <ul class="navbar-nav ms-auto"> 
+      <ul class="navbar-nav ms-auto">
       @auth
        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Welcome {{auth()->user()->name}}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-card-list"></i>Dashboard</a></li>
             <li><hr class="dropdown-divider"></li>
             <li>
               <form action="{{url('/logout')}}" method="post">
@@ -32,9 +31,9 @@
             </li>
           </ul>
         </li>
-      @else    
-       <li class="nav-item"> 
-           <a href="{{url('')}}" class="nav-link "> 
+      @else
+       <li class="nav-item">
+           <a href="{{url('')}}" class="nav-link">
             <i class="bi bi-arrow-left-square"></i>
               Back To Home
           </a>

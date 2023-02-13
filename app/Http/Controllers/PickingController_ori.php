@@ -14,32 +14,11 @@ class PickingController extends Controller
 {
     public function index()
     {      
-        $pagination =8; 
-        $data = RegisterPart::latest()->paginate(8);
-
-
-        // $partno = ['part_number'];
-        // $get_location = DB::connection("sqlsrv2")
-        // ->select("SELECT lokasi from stdpack where  partnumber= '{$partno}'");
-
-
+        $pagination =7; 
+        $data = RegisterPart::latest()->paginate(7);
         return view ('picking.index',compact('data'))->with('i', (request()->input('page', 1) -1) * $pagination);   
     }
 
-
-    // public function get_location_part($param){
-    //     $supplier = isset($param['label_original']) ? substr($param['label_original'],31,6) : "";
-    //     $partno = $param['part_number'];
-
-    //     $get_location = DB::connection("sqlsrv2")
-    //                     ->select("SELECT lokasi from stdpack where suppcode = '{$supplier}' and partnumber= '{$partno}'");
-    //     // $get_location = MasterPart::select("lokasi")->where('suppcode',$supplier)->where('partnumber',$partno);
-
-    //     // $get_location = DB::table('stdpack')->select('lokasi')->where('suppcode', $supplier)->where('part_number', $partno);
-        
-    //     return $get_location[0]->lokasi;   
-     
-    // }
 
 
     

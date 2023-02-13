@@ -1,7 +1,12 @@
 /node_modules
 /public/hot
+/public/css
+/public/css_2
+/public/js
 /public/storage
 /public/assets/phpqrcode
+/public/phpqrcode
+/public/img_qrcode
 /storage/*.key
 /vendor
 .env
@@ -14,3 +19,5 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+/config
+/public/assets

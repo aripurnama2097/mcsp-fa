@@ -7882,19 +7882,19 @@
     ],
     "packages-dev": [
         {
-            "name": "barryvdh/laravel-debugbar",
-            "version": "v3.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "3372ed65e6d2039d663ed19aa699956f9d346271"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/3372ed65e6d2039d663ed19aa699956f9d346271",
-                "reference": "3372ed65e6d2039d663ed19aa699956f9d346271",
-                "shasum": ""
-            },
+            // "name": "barryvdh/laravel-debugbar",
+            // "version": "v3.7.0",
+            // "source": {
+            //     "type": "git",
+            //     "url": "https://github.com/barryvdh/laravel-debugbar.git",
+            //     "reference": "3372ed65e6d2039d663ed19aa699956f9d346271"
+            // },
+            // "dist": {
+            //     "type": "zip",
+            //     "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/3372ed65e6d2039d663ed19aa699956f9d346271",
+            //     "reference": "3372ed65e6d2039d663ed19aa699956f9d346271",
+            //     "shasum": ""
+            // },
             "require": {
                 "illuminate/routing": "^7|^8|^9",
                 "illuminate/session": "^7|^8|^9",
@@ -7910,26 +7910,26 @@
                 "squizlabs/php_codesniffer": "^3.5"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.6-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Barryvdh\\Debugbar\\ServiceProvider"
-                    ],
-                    "aliases": {
-                        "Debugbar": "Barryvdh\\Debugbar\\Facades\\Debugbar"
-                    }
-                }
-            },
+            // "extra": {
+            //     "branch-alias": {
+            //         "dev-master": "3.6-dev"
+            //     },
+            //     "laravel": {
+            //         "providers": [
+            //             "Barryvdh\\Debugbar\\ServiceProvider"
+            //         ],
+            //         "aliases": {
+            //             "Debugbar": "Barryvdh\\Debugbar\\Facades\\Debugbar"
+            //         }
+            //     }
+            // },
             "autoload": {
                 "files": [
                     "src/helpers.php"
                 ],
-                "psr-4": {
-                    "Barryvdh\\Debugbar\\": "src/"
-                }
+                // "psr-4": {
+                //     "Barryvdh\\Debugbar\\": "src/"
+                // }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -7941,7 +7941,7 @@
                     "email": "barryvdh@gmail.com"
                 }
             ],
-            "description": "PHP Debugbar integration for Laravel",
+            // "description": "PHP Debugbar integration for Laravel",
             "keywords": [
                 "debug",
                 "debugbar",

@@ -4,13 +4,13 @@
 
 	<div class="breadcomb-area tb-res-mg-t-20 rounded">
 		<div class="container">
-			<div class="col-lg-12 shadow-sm rounded border border-secondary">
+			<div class="col-lg-12 shadow-sm rounded ">
 				<div class="breadcomb-list rounded-3 border-success">
 					<div class="row border-success">
 						<div class="col-lg-6 border-success">
 							<div class="breadcomb-wp border-success ">
 								<div class="breadcomb-icon">
-									<i class="notika-icon notika-form"></i>
+									<i class="bi bi-funnel"></i>
 								</div>
 								<div class="breadcomb-ctn ">
 									<h2>FILTER</h2>
@@ -20,14 +20,14 @@
 										<input type="date" class="form-control rounded-3 form-control-sm" name="start_date" id="start-date" value="{{date('Y-m-d')}}">
 										<input type="date" class="form-control rounded-3 form-control-sm" name="end_date" id="end-date" value="{{date('Y-m-d')}}">	
 																		
-										<button type="submit" data-toggle="tooltip" data-placement="left" title="" class="btn btn-outline-secondary btn-sm rounded">Submit</buton>
+										<button type="submit" data-toggle="tooltip" data-placement="left" title="" class="btn btn-primary btn-sm rounded">Search</buton>
 										
 										</div>
 										<div class="breadcomb-report">
 											{{-- FILTER --}}
 											
 											{{-- DOWNLOAD --}}
-											<button type="button" id="export-csv" data-toggle="tooltip" data-placement="left" title="" class="btn waves-effect" data-original-title="Download Report"><i class="notika-icon notika-sent"></i></buton>
+											<button type="button" id="export-csv" data-toggle="tooltip" data-placement="left" title="" class="btn waves-effect btn-sm" data-original-title="Download Report"><i class="notika-icon notika-sent"></i> export-csv</buton>
 										</div>
 									</form>
 								</div>
@@ -96,6 +96,8 @@
 				<br>
 				<div class="d-flex justify-content-center">
 					{{ $data->links() }}
+
+	
 				</div>
 				
 			</div>
@@ -131,7 +133,13 @@
 						success: function(response) {
 						var data=""
 							console.log(data);
-
+							// if (data !== null && typeof data !== "undefined") {
+							// // do something with data.id
+							// }
+							// else {
+							// console.log("data is null or undefined");
+							// }
+							
 							$.each(response,function(key, value){
 
 							data = data + "<tr>"
@@ -142,7 +150,7 @@
 							data = data + "<td>"+value.PO+"</td>"
 							data = data + "<td>"+value.label_original+"</td>"
 							data = data + "<td>"+value.status+"</td>"
-							data = data + "<td>"+value.shorting_date+"</td>"
+							data = data + "<td>"+value.shorting_date +"</td>"
 							data = data + "<td>"+value.label_sorting+"</td>"
 							data = data + "<td>"+value.label_balance+"</td>"
 							data = data + "</tr>"

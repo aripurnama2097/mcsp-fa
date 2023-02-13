@@ -34,13 +34,14 @@
                                         <th class="text-center text-white">NO</th>
                                         <th class="text-center text-white">ACTION </th>                        
                                         <th class="text-center text-white">PART NUMBER</th>
+                                        <th class="text-center text-white">DATE</th>
                                         <th class="text-center text-white">ROG NUMBER</th>
                                         <th class="text-center text-white">QTY REQUEST</th>
                                         <th class="text-center text-white">STATUS</th>                                
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data as $key => $value)                                 
+                                    @foreach ($data as $key => $value )                                 
                                         <tr>
                                             <?php if ($value->status == 'SELECT') {
                                                 echo '<tr style="background-color: rgb(144, 144, 144);">';
@@ -60,8 +61,11 @@
                                                 <br>
                                             </td>
                                            
+                                            <td class="text-black text-center ">{{ $value->part_number }} </td>
+                                                
                                             <td class="text-black text-center ">
-                                                {{ $value->part_number }} </td>
+                                                    {{ $value->register_at }} </td>
+                                                    
                                             <td class="text-black text-center">
                                                     {{ $value->rog_number }} </td>
                                             <td class="text-black text-center">
@@ -77,7 +81,11 @@
                                                     <?php if ($value->status == 'SORTING') {
                                                         echo '<span class= "badge text-bg-primary">SUCCESS</span>';
                                                     } ?>
-                                                </td>     
+
+                                                    <?php if ($value->status == 'DONE') {
+                                                        echo '<span class= "badge text-bg-primary">SUCCESS</span>';
+                                                    } ?>
+                                                 </td>     
                                         </tr>
                                     @endforeach
                                 </tbody>

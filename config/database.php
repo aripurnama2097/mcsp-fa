@@ -91,17 +91,17 @@ return [
             'prefix_indexes' => true,
         ],
 
-        'sqlsvr2' => [
+        'sqlsrv2' => [
             'driver' => 'sqlsrv',
-            // 'server' => env('DB_SERVER2', 'svrdbs\sa'),
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST2', '136.198.117.48\JEINSQL2012'),
-            'port' => env('DB_PORT2', '63754'),
-            'database' => env('DB_DATABASE2', 'JVC'),
-            'username' => env('DB_USERNAME2', 'sa'),
-            'password' => env('DB_PASSWORD2', 'JvcSql@123'),
+            'host' => env('DB_HOST2', 'localhost'),
+            'port' => env('DB_PORT2', '1433'),
+            'database' => env('DB_DATABASE2', 'forge'),
+            'username' => env('DB_USERNAME2', 'forge'),
+            'password' => env('DB_PASSWORD2', ''),
+            'charset' => 'utf8',
             'prefix' => '',
-            'schema' => env('DB_SCHEMA2', 'dbo'),
+            'prefix_indexes' => true,
         ],
        
         'sqlsvr3' => [
