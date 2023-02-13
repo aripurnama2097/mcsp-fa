@@ -86,8 +86,9 @@
 										<th class="text-center text-white">REGISTER DATE</th>
 										<th class="text-center text-white">REGISTER BY</th>
 										<th class="text-center text-white">ACTION </th>
-										<th class="text-center text-white">CONFIRM</th>
+										<th class="text-center text-white">CONFIRM / CANCEL</th>
 										<th class="text-center text-white">CONFIRM BY</th>
+										<th class="text-center text-white">REMARK</th>
 
 									</tr>
 								</thead>
@@ -117,7 +118,10 @@
 											} ?>  
 										<?php if ($value->status == 'DONE') {
 											echo '<span class= "badge text-bg-success">DONE</span>';
-										} ?> 	       
+										} ?> 	
+										<?php if ($value->status == 'Cancel') {
+											echo '<span class= "badge text-bg-danger">CANCEL</span>';
+										} ?>        
 										</td>
 										<td class="text-center">{{$value->register_at}} </td>
 										<td class="text-center">{{$value->register_by}} </td>
@@ -224,6 +228,7 @@
 
 
 										<td class="text-center">
+										<div class="btn-group">
 											<?php
 											if ($value->status== 'SORTING') {
 												// href="javascript:void(0);"
@@ -232,11 +237,24 @@
 													data-confirm_status ="' . $value->status . '"													   
 													class = "btn btn-outline-success btn-sm"><i class="bi bi-check-sm"></i> CONFIRM
 												</a>';			
-											}																	
+											}
+											
+											
+											if($value->status=='DONE' ){
+												echo '<a  data-bs-toggle="modal" data-bs-target="#modal_cancel" id="cancel_part"
+													data-cancel_id ="' . $value->id . '"
+													data-cancel_status ="' . $value->status . '"													   
+													class = "btn btn-outline-danger btn-sm"><i class="bi bi-check-sm"></i> CANCEL PART
+												</a>';			
+											}
 											?>
+										</div>
 										</td>
 										<td class="text-center">
 											{{$value->confirm_by}} 
+										</td>
+										<td class="text-center">
+											{{$value->remark}} 
 										</td>
 									</tr>
 									@endforeach  
@@ -258,7 +276,7 @@
 
  {{-- href="{{url('register_part/' .$value->id. '/edit')}} --}}
 
-{{-- MODAL CREATE --}}
+{{---------------------------- MODAL CREATE --------------------------------------}}
  <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 	  <div class="modal-content">
@@ -287,21 +305,7 @@
 								</div>
 							</div>
 						</div>
-			
-						{{-- <div class="row">
-							<div class="col-lg-12 ">
-								<div class="form-group ic-cmp-int">
-									<div class="form-ic-cmp">
-										<i class="notika-icon notika"></i>
-									</div>
-									<div class="nk-int-st">
-										<input type="text" class="form-control mb-3"
-											name="part_number" placeholder="PART NUMBER" required>
-									</div>
-								</div>
-							</div>
-						</div> --}}
-
+		
 						<div class="row">
 							<div class="col-lg-12 ">
 								<div class="form-group ic-cmp-int">
@@ -309,12 +313,6 @@
 										<i class="notika-icon notika"></i>
 									</div>
 									<div class="bootstrap-select fm-cmp-mg">
-										{{-- <select class="selectpicker" data-live-search="true" name="part_number">
-											<option value="">PART NUMBER</option>
-											@foreach($data_part as $dd)
-											<option value="{{$dd}}">{{$dd}}</option>
-											@endforeach
-										</select> --}}
 
 										<label for="exampleDataList" class="form-label">PART NUMBER</label>
 										<input class="form-control" list="datalistOptions" id="exampleDataList" name="part_number" placeholder="Type to search...">
@@ -329,30 +327,6 @@
 							</div>
 						</div>
 						<br>
-
-					{{-- AUTO P/N --}}
-						{{-- <div class="row">	 
-							<div class="col-LG-12">
-								<div class="form-group ic-cmp-int">
-									<div class="form-ic-cmp">
-										<i class="notika-icon notika"></i>
-									</div>
-									<div class="nk-int-st">
-										{{-- <input type="text" class="form-control mb-3"
-											name="part_number" placeholder="PART NUMBER AUTO" required> --}}
-											{{-- <div class="bootstrap-select fm-cmp-mg">
-												<select class="selectpicker" data-live-search="true" name="part_number">
-													<option value="">PART NUMBER</option>
-													@foreach($data_part as $dd)
-													<option value="{{$dd}}">{{$dd}}</option>
-													@endforeach
-													</select>
-											</div>
-									</div>
-								</div>
-							</div>
-						</div> --}}
-					
 
 						<div class="row">
 							<div class="col-lg-12 ">
@@ -398,9 +372,7 @@
 </div>
 
 
-
-
-
+{{-- ===================================MODAL CONFIRM======================== --}}
 <div class="modal fade" id="modal_confirm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog bg-cyan">
 	  <div class="modal-content ">
@@ -444,10 +416,51 @@
 	</div>
 </div>
 
-  @endsection
+{{-- ===================================MODAL CANCEL======================== --}}
+<div class="modal fade" id="modal_cancel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog bg-cyan">
+	  <div class="modal-content ">
+		<div class="modal-header">
+		  <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body text-center">
+			<form action="{{url('/register_part/cancel/') }}" method="POST">
+				@csrf
+				<div class="breadcomb-area">
+					<div class="container">
+						<h1 class="modal-title fs-5 text-white font-size:50px" id="exampleModalLabel">PART RECEIVED ?</h1>
+							<div class="col-lg-12 ">
+								<div class="form-group ic-cmp-int rounded">
+									<div class="form-ic-cmp">
+										<i class="notika-icon notika-part"></i>
+									</div>
+									<div class="nk-int-st">
+										<input type="text" class="form-control mb-3"
+											name="remark" placeholder="REMARK" required>
+										
+									</div>
+								</div>
+							</div>
+							
+							<input type="hidden" name="id" id="cancel_id">
+							<input type="hidden" name="status" id="cancel_status">
+						<br>
+						<br>					
+						<div class="modal-footer text-center">
+						<button type="button" class="btn btn-warning text-center btn-sm" data-bs-dismiss="modal">CANCEL</button>
+						<button type="submit" class="btn btn-primary text-center btn-sm">SUBMIT</button>
+						</div>	
+					</div>
+				</div>
+			</form>
+		</div>	
+	  </div>
+	</div>
+</div>
+@endsection
   
-  
-  <script src="{{asset ('') }}js/jquery.min.js"></script>
+<script src="{{asset ('') }}js/jquery.min.js"></script>
 
 <script>
 	$(document).ready(function() {
@@ -457,6 +470,14 @@
 			$('#confirm_id').val(confirm_id)
 			$('#confirm_status').val(confirm_status)
 		})
+		
+		$(document).on('click', '#cancel_part', function() { 
+			var cancel_id = $(this).data('cancel_id')
+			var cancel_status = $(this).data('cancel_status')	
+			$('#cancel_id').val(cancel_id)
+			$('#cancel_status').val(cancel_status)
+		})
+
 	});
 
 

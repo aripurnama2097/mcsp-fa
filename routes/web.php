@@ -87,6 +87,7 @@ Route::post('/register_part/createPart/', [RegisterPartController::class,'create
 Route::post('/register_part/update/{id}', [RegisterPartController::class,'update'])->middleware('auth');
 // ROUTE CONFIRM
 Route::post('/register_part/confirm/', [RegisterPartController::class,'confirm'])->middleware('auth');
+Route::post('/register_part/cancel/', [RegisterPartController::class,'cancel'])->middleware('auth');
 
 
 

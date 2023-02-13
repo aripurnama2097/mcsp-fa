@@ -185,22 +185,25 @@ class RegisterPartController extends Controller
             $model->confirm_by = $request->confirm_by;
             $model->save();
 
-            // RegisterPart::where("status",$request->status)
-            // ->where("id",$request->id)       
-            // ->update(["status","DONE"]);
-            
-          
         return redirect('/register_part')->with('success', 'CONFIRM PART SUCCESS!');
         
          
     }     
         
         
-    // public function picking(){
+     public function cancel(Request $request){  
 
-    //     return $this->hasOne(Compare::class,'foreign_key');
-    // }
+        
+            $model = RegisterPart::find($request->id);
+
+            $model->status = 'Cancel';
+            $model->remark = $request->remark;
+            $model->save();
+            
+        return redirect('/register_part')->with('success', 'PART REQUEST CANCEL!');
+        
+         
+    }     
 }
 
 
-// $model = RegisterPart::find($id);
