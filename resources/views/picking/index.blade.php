@@ -34,6 +34,8 @@
                                         <th class="text-center text-white">NO</th>
                                         <th class="text-center text-white">ACTION </th>                        
                                         <th class="text-center text-white">PART NUMBER</th>
+                                        <th class="text-center text-dark table-warning">PART NAME</th>
+                                        <th class="text-center text-dark table-warning">LOKASI</th>
                                         <th class="text-center text-white">DATE</th>
                                         <th class="text-center text-white">ROG NUMBER</th>
                                         <th class="text-center text-white">QTY REQUEST</th>
@@ -41,8 +43,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data as $key => $value )                                 
-                                        <tr>
+                                    @foreach ($data as $key => $value ) 
+                                    <tr>
+                                            @foreach($get_location as $u)                                
+                                            @if($value->id == $u->id)
                                             <?php if ($value->status == 'SELECT') {
                                                 echo '<tr style="background-color: rgb(144, 144, 144);">';
                                             } else {
@@ -61,8 +65,9 @@
                                                 <br>
                                             </td>
                                            
-                                            <td class="text-black text-center ">{{ $value->part_number }} </td>
-                                                
+                                            <td class="text-black text-center ">{{ $value->part_number }} </td>  
+                                            <td class="text-black text-center  ">{{ $u->partname }} </td>  
+                                            <td class="text-black text-center ">{{ $u->lokasi }} </td>                                            
                                             <td class="text-black text-center ">
                                                     {{ $value->register_at }} </td>
                                                     
@@ -85,8 +90,11 @@
                                                     <?php if ($value->status == 'DONE') {
                                                         echo '<span class= "badge text-bg-primary">SUCCESS</span>';
                                                     } ?>
-                                                 </td>     
-                                        </tr>
+                                                 </td>   
+                                                 @endif  
+                                                 @endforeach
+                                                </tr>
+                                        
                                     @endforeach
                                 </tbody>
                             </table>

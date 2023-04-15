@@ -17,29 +17,21 @@ class PickingController extends Controller
         $pagination =8; 
         $data = RegisterPart::latest()->paginate(8);
 
+        $get_location= DB::connection('sqlsrv')
+        ->select('SELECT d.id, d.rog_number, d.part_number, c.partname, b.lokasi, b.input_date
+        from MCSORTING.dbo.register_part as d
+        left join 
+        (
+        select a.partnumber, a.partname,  max(a.replikasi) as replikasi
+        from SVRDBN.EDI.dbo.StdPack  a
+        group by a.partnumber, a.partname
+        ) as c on d.part_number COLLATE Latin1_General_CI_AS = c.partnumber COLLATE Latin1_General_CI_AS
+        left join  SVRDBN.EDI.dbo.StdPack b on b.replikasi = c.replikasi
+        order by d.id desc');
+ 
 
-        // $partno = ['part_number'];
-        // $get_location = DB::connection("sqlsrv2")
-        // ->select("SELECT lokasi from stdpack where  partnumber= '{$partno}'");
-
-
-        return view ('picking.index',compact('data'))->with('i', (request()->input('page', 1) -1) * $pagination);   
+        return view ('picking.index',compact('data','get_location'))->with('i', (request()->input('page', 1) -1) * $pagination);   
     }
-
-
-    // public function get_location_part($param){
-    //     $supplier = isset($param['label_original']) ? substr($param['label_original'],31,6) : "";
-    //     $partno = $param['part_number'];
-
-    //     $get_location = DB::connection("sqlsrv2")
-    //                     ->select("SELECT lokasi from stdpack where suppcode = '{$supplier}' and partnumber= '{$partno}'");
-    //     // $get_location = MasterPart::select("lokasi")->where('suppcode',$supplier)->where('partnumber',$partno);
-
-    //     // $get_location = DB::table('stdpack')->select('lokasi')->where('suppcode', $supplier)->where('part_number', $partno);
-        
-    //     return $get_location[0]->lokasi;   
-     
-    // }
 
 
     
